@@ -1,0 +1,45 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.fireless.firecheck.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            tools:ignore="PrivateResource" />
+        <action
+            android:id="@+id/action_loginFragment_to_loggedActivity"
+            app:destination="@id/mainActivity"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            tools:ignore="PrivateResource" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.fireless.firecheck.ui.registration.RegistrationFragment"
+        android:label="Create An Account"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            tools:ignore="PrivateResource" />
+        <action
+            android:id="@+id/action_registrationFragment_to_loggedActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.fireless.firecheck.MainActivity"
+        android:label="FoodLocker"
+        tools:layout="@layout/activity_main" />
+</navigation>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.fireless.firecheck.ui.home.HomeFragment"
+        android:label="@string/hello_first_fragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_maintenanceFragment"
+            app:destination="@id/maintenanceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newControlFragment"
+        android:name="com.fireless.firecheck.NewMaintenanceFragment"
+        android:label="fragment_new_control"
+        tools:layout="@layout/fragment_new_maintenance" />
+    <action
+        android:id="@+id/action_global_newControlFragment"
+        app:destination="@+id/newControlFragment" />
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@+id/homeFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/navigation_graph"
+        app:popUpToInclusive="true"/>
+    <action
+        android:id="@+id/action_global_newExtinguisherFragment"
+        app:destination="@+id/newExtinguisherFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/navigation_graph"
+        app:popUpToInclusive="true"/>
+    <fragment
+        android:id="@+id/maintenanceFragment"
+        android:name="com.fireless.firecheck.MaintenanceFragment"
+        android:label="fragment_maintenance"
+        tools:layout="@layout/fragment_maintenance">
+        <argument
+            android:name="maintenanceId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/newExtinguisherFragment"
+        android:name="com.fireless.firecheck.ui.extinguisher.NewExtinguisherFragment"
+        android:label="fragment_new_extinguisher"
+        tools:layout="@layout/fragment_new_extinguisher" />
+</navigation>

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "264831408588",
+    "firebase_url": "https://fire-checker-7cb3e.firebaseio.com",
+    "project_id": "fire-checker-7cb3e",
+    "storage_bucket": "fire-checker-7cb3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264831408588:android:94570a1629c4a99431a569",
+        "android_client_info": {
+          "package_name": "com.fireless.firecheck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264831408588-uclt9dan9plc9c8k1as38mir0eaonu3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBitF33gcU8dWiTkBGFuwhX5dvTtQm4Zh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264831408588-uclt9dan9plc9c8k1as38mir0eaonu3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264831408588:android:24b111f4bafaf0d531a569",
+        "android_client_info": {
+          "package_name": "com.letsbuildthatapp.foodlocker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264831408588-uclt9dan9plc9c8k1as38mir0eaonu3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBitF33gcU8dWiTkBGFuwhX5dvTtQm4Zh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264831408588-uclt9dan9plc9c8k1as38mir0eaonu3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
