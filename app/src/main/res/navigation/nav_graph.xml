@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.fireless.firecheck.ui.home.HomeFragment"
-        android:label="@string/hello_first_fragment"
         tools:layout="@layout/fragment_home">
 
         <action
@@ -56,4 +55,18 @@
             android:id="@+id/action_newExtinguisherFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newCompanyFragment"
+        android:name="com.fireless.firecheck.ui.company.NewCompanyFragment"
+        android:label="NewCompanyFragment" >
+        <action
+            android:id="@+id/action_newCompanyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_newCompanyFragment"
+        app:destination="@+id/newCompanyFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/navigation_graph"
+        app:popUpToInclusive="true"/>
 </navigation>

@@ -15,18 +15,23 @@ private const val TAG = "Registration View Model"
 
 class RegistrationViewModel : ViewModel() {
 
+    var firstName: String = ""
+    var lastName: String = ""
     var email: String = ""
     var password: String = ""
     var confirmPassword: String = ""
-    var username: String = ""
+
+    private val _firstNameError = MutableLiveData<String>()
+    val firstNameError: LiveData<String>
+        get() = _firstNameError
+
+    private val _lastNameError = MutableLiveData<String>()
+    val lastNameError: LiveData<String>
+        get() = _lastNameError
 
     private val _emailError = MutableLiveData<String>()
     val emailError: LiveData<String>
         get() = _emailError
-
-    private val _usernameError = MutableLiveData<String>()
-    val usernameError: LiveData<String>
-        get() = _usernameError
 
     private val _passwordError = MutableLiveData<String>()
     val passwordError: LiveData<String>
@@ -37,6 +42,8 @@ class RegistrationViewModel : ViewModel() {
         get() = _confirmPasswordError
 
     init {
+        _firstNameError.value = ""
+        _lastNameError.value = ""
         _emailError.value = ""
         _passwordError.value = ""
         _confirmPasswordError.value = ""
@@ -56,7 +63,7 @@ class RegistrationViewModel : ViewModel() {
                 // else if successful
                 Log.e(TAG, "Successfully created user with uid: ${it.result?.user?.uid}")
 
-                FirebaseDBMng.saveUserOnFirebaseDatabase(view)
+                FirebaseDBMng.saveUserOnFirebaseDatabase(view, firstName, lastName)
                 view.findNavController().navigate((R.id.action_registrationFragment_to_mainActivity))
             }
             .addOnFailureListener {
@@ -69,6 +76,8 @@ class RegistrationViewModel : ViewModel() {
     private fun isFormDataValid(): Boolean {
         var validForm = true
 
+        _firstNameError.value = null
+        _lastNameError.value = null
         _emailError.value = null
         _passwordError.value = null
         _confirmPasswordError.value = null

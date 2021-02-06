@@ -21,9 +21,11 @@ object FirebaseDBMng {
     private val coroutineScope = CoroutineScope(
         viewModelJob + Dispatchers.Main)
 
+    /*
     private val _userDB = MutableLiveData<User?>()
     val userDB: LiveData<User?>
         get() = _userDB
+    */
 
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -40,7 +42,7 @@ object FirebaseDBMng {
         dbReference.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onDataChange(p0: DataSnapshot) {
-                p0.getValue(User::class.java)?.let { _userDB.value = it }
+                //p0.getValue(User::class.java)?.let { _userDB.value = it }
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -48,7 +50,7 @@ object FirebaseDBMng {
         })
     }
 
-    fun saveUserOnFirebaseDatabase(view: View?) {
+    fun saveUserOnFirebaseDatabase(view: View?, firstName: String, lastName: String) {
         val currentUser = auth.currentUser
         val dbReference = FirebaseDatabase.getInstance().getReference("/users/${currentUser?.uid}")
 
@@ -59,7 +61,7 @@ object FirebaseDBMng {
                     dbReference.setValue(user)
                         .addOnSuccessListener {
                             Log.d(TAG, "user saved on firebase database")
-                            saveUserOnBackend(currentUser.uid)
+                            saveUserOnBackend(currentUser.uid, firstName, lastName)
                             Toast.makeText(view?.context, "Recorded correctly, we're almost there.", Toast.LENGTH_SHORT).show()
                         }
                 }
@@ -71,9 +73,11 @@ object FirebaseDBMng {
 
     }
 
-    private fun saveUserOnBackend(uuid: String) {
+    private fun saveUserOnBackend(uuid: String, firstName: String, lastName: String) {
         coroutineScope.launch {
-            val setUserDeferred = UserApi.retrofitServiceSetUser.setUser(uuid)
+            val setUserDeferred = UserApi
+                    .retrofitServiceSetUser
+                    .setUser(uuid, firstName, lastName)
             try {
                 val result = setUserDeferred.await()
                 Log.e(TAG, "$result")
@@ -85,6 +89,6 @@ object FirebaseDBMng {
 
 
     fun resetUserInfo() {
-        _userDB.value = null
+        //_userDB.value = null
     }
 }

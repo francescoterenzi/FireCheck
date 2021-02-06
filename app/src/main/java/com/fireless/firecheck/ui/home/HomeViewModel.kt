@@ -52,7 +52,7 @@ class HomeViewModel : ViewModel() {
             val valore=20
             for (i in 1..valore)
             {
-                val m = Maintenance(i, User(""))
+                val m = Maintenance(i, "Francesco Terenzi", "1702217")
                 mList.add(m)
             }
 

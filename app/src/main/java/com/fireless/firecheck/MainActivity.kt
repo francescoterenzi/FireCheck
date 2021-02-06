@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import com.fireless.firecheck.databinding.ActivityMainBinding
 import com.fireless.firecheck.network.FirebaseDBMng
 import com.fireless.firecheck.network.FirebaseUserLiveData
+import com.fireless.firecheck.ui.company.NewCompanyFragmentDirections
 import com.fireless.firecheck.ui.extinguisher.NewExtinguisherFragmentDirections
 import com.fireless.firecheck.ui.login.LoginActivity
 import com.fireless.firecheck.ui.maintenance.DatePickerFragment
@@ -101,6 +102,9 @@ class MainActivity : AppCompatActivity(),
             R.id.newExtinguisherFragment -> {
                 setBottomAppBarForNewExtinguisher()
             }
+            R.id.newCompanyFragment -> {
+                setBottomAppBarForNewExtinguisher()
+            }
         }
     }
 
@@ -183,10 +187,27 @@ class MainActivity : AppCompatActivity(),
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
 
+    private fun navigateToNewCompany() {
+        currentNavigationFragment?.apply {
+            exitTransition = MaterialElevationScale(false).apply {
+                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            }
+            reenterTransition = MaterialElevationScale(true).apply {
+                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            }
+        }
+
+        val directions = NewCompanyFragmentDirections.actionGlobalNewCompanyFragment()
+        findNavController(R.id.nav_host_fragment).navigate(directions)
+    }
+
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.new_extinguisher -> {
                 navigateToNewExtinguisher()
+            }
+            R.id.new_company ->  {
+                navigateToNewCompany()
             }
         }
         return true

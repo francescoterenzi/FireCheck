@@ -36,21 +36,18 @@ class NewMaintenanceViewModel : ViewModel() {
 
     var extinguisherId: String = ""
 
-    private fun getExtinguisherId(matricola: String): Int {
-        return 1
-    }
-
     fun createMaintenance(view: View) {
         coroutineScope.launch {
             val setPropertiesDeferred = MaintenanceApi
                 .retrofitServiceSetMaintenance
                 .setMaintenance(
+                    "Luglio 2020",
                     extinguisherId,
                     auth.currentUser!!.uid
                 )
             try {
                 _status.value = ApiStatus.LOADING
-                val result = setPropertiesDeferred.await()
+                setPropertiesDeferred.await()
                 _status.value = ApiStatus.DONE
 
                 view.findNavController().navigate(R.id.action_newMaintenanceFragment_to_homeFragment)

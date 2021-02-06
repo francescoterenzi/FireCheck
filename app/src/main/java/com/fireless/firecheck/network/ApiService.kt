@@ -34,15 +34,20 @@ private val retrofit = Retrofit.Builder()
 interface SetUserApiService {
     @POST("users/")
     @FormUrlEncoded
-    fun setUser(@Field("id") uuid: String):
+    fun setUser(
+            @Field("id") uuid: String,
+            @Field("first_name") firstName: String,
+            @Field("last_name") lastName: String):
             Deferred<UserProperty>
 }
 
+/*
 interface GetUserControlsApiService {
     @GET("users/{id}/controls")
     fun getUserControls(@Path("id") uuid: String):
             Deferred<List<Maintenance>>
 }
+*/
 
 /**
  * EXTINGUISHER MANAGEMENT
@@ -52,7 +57,9 @@ interface SetExtinguisherApiService {
     @FormUrlEncoded
     fun setExtinguisher(
         @Field("id") id: String,
-        @Field("company_id") companyId: Int):
+        @Field("weight") weight: String,
+        @Field("typology") typology: String,
+        @Field("company_id") companyId: String):
             Deferred<Extinguisher>
 }
 
@@ -63,10 +70,25 @@ interface SetMaintenanceApiService {
     @POST("controls/")
     @FormUrlEncoded
     fun setMaintenance(
-        @Field("extinguisher_id") extinguisherId: String,
-        @Field("user_id") userId: String):
+            @Field("date_of_control") dateOfControl: String,
+            @Field("extinguisher_id") extinguisherId: String,
+            @Field("user_id") userId: String):
             Deferred<Extinguisher>
 }
+
+/**
+ * COMPANY MANAGEMENT
+ */
+interface SetCompanyApiService {
+    @POST("companies/")
+    @FormUrlEncoded
+    fun setCompany(
+            @Field("id") id: String,
+            @Field("name") name: String,
+            @Field("address") address: String):
+            Deferred<Company>
+}
+
 
 object UserApi {
 
@@ -74,9 +96,11 @@ object UserApi {
         retrofit.create(SetUserApiService::class.java)
     }
 
+    /*
     val retrofitServiceGetUserControls: GetUserControlsApiService by lazy {
         retrofit.create(GetUserControlsApiService::class.java)
     }
+     */
 }
 
 object ExtinguisherApi {
@@ -93,6 +117,13 @@ object MaintenanceApi {
         retrofit.create(SetMaintenanceApiService::class.java)
     }
 
+}
+
+object CompanyApi {
+
+    val retrofitServiceSetCompany: SetCompanyApiService by lazy {
+        retrofit.create(SetCompanyApiService::class.java)
+    }
 }
 
 

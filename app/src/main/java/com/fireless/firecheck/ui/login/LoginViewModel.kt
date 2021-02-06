@@ -39,10 +39,12 @@ class LoginViewModel : ViewModel() {
             return
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+
             if (!it.isSuccessful) return@addOnCompleteListener
             Log.e(TAG, "Successfully logged in: ${it.result?.user?.uid}")
             Toast.makeText(view.context, "Successfully logged in", Toast.LENGTH_SHORT).show()
             view.findNavController().navigate((R.id.action_loginFragment_to_mainActivity))
+
         }.addOnFailureListener {
             Log.e(TAG, "Log in Failed: ${it.message}")
             Toast.makeText(view.context, "Log in Failed: ${it.message}", Toast.LENGTH_LONG).show()

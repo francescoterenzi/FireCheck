@@ -50,7 +50,7 @@ class MaintenanceFragment : Fragment() {
         mapView.onResume()
 
         try {
-            val initialize = MapsInitializer.initialize(activity?.applicationContext)
+            MapsInitializer.initialize(activity?.applicationContext)
         } catch (e: Exception) {
             e.printStackTrace()
         }

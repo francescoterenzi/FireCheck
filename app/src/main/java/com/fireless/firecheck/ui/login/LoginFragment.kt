@@ -49,6 +49,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    /*
     @SuppressLint("LogNotTimber")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
@@ -80,5 +81,6 @@ class LoginFragment : Fragment() {
             Toast.makeText(this.context, "Google login Failed: ${it.message}", Toast.LENGTH_LONG).show()
         }
     }
+     */
 
 }

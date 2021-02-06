@@ -7,11 +7,6 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
     <string name="maintenance_card_transition_name">maintenance_card_%1$s</string>
 
@@ -37,12 +32,33 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="register_the_maintenance">Register the maintenance</string>
     <string name="close_button">Close button</string>
-    <string name="extinguisher_id">Extinguisher ID</string>
-    <string name="address">Address</string>
-    <string name="register_the_extignuisher">Register the extignuisher</string>
     <string name="logout">Logout</string>
 
+    <!-- Login form -->
+    <string name="e_mail">E-Mail</string>
+    <string name="password">Password</string>
+
+    <!-- Registration form -->
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="register">Register a new account</string>
+    <string name="already_registered">Already registered? Login intead</string>
+
+    <!-- New extinguisher form -->
+    <string name="extinguisher_id">Extinguisher ID</string>
+    <string name="weight">Weight (Kg)</string>
+    <string name="register_the_extignuisher">Register the extignuisher</string>
+
+    <!-- New company form -->
+    <string name="company_id">Company ID</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="my_position_icon">My position</string>
+    <string name="register_the_company">Register a new company</string>
+
+    <!-- New maintenance form -->
+    <string name="register_the_maintenance">Register the maintenance</string>
+    <string name="typology">Typology</string>
 
 </resources>

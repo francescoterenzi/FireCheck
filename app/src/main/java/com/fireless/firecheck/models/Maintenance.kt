@@ -23,10 +23,9 @@ import androidx.recyclerview.widget.DiffUtil
  */
 data class Maintenance(
     val id: Int,
-    val technician: User
-) {
-
-}
+    val userId: String,
+    val extinguisherId: String
+)
 
 object MaintenanceDiffCallback : DiffUtil.ItemCallback<Maintenance>() {
     override fun areItemsTheSame(oldItem: Maintenance, newItem: Maintenance) = oldItem.id == newItem.id

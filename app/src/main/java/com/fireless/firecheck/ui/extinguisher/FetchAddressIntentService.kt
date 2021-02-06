@@ -37,6 +37,7 @@ import java.util.Locale
  * This constructor is required, and calls the super IntentService(String)
  * constructor with the name for a worker thread.
  */
+@Suppress("DEPRECATION")
 class FetchAddressIntentService : IntentService("FetchAddress") {
 
     private val TAG = "FetchAddressService"
