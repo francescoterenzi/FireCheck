@@ -10,7 +10,6 @@ import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -18,6 +17,9 @@ import com.fireless.firecheck.databinding.ActivityMainBinding
 import com.fireless.firecheck.network.FirebaseDBMng
 import com.fireless.firecheck.network.FirebaseUserLiveData
 import com.fireless.firecheck.ui.extinguisher.NewExtinguisherFragmentDirections
+import com.fireless.firecheck.ui.login.LoginActivity
+import com.fireless.firecheck.ui.maintenance.DatePickerFragment
+import com.fireless.firecheck.ui.maintenance.NewMaintenanceFragmentDirections
 import com.google.android.material.transition.MaterialElevationScale
 import com.materialstudies.reply.util.contentView
 
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity(),
 
     private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
 
-    val currentNavigationFragment: Fragment?
+    private val currentNavigationFragment: Fragment?
         get() = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
             ?.childFragmentManager
             ?.fragments
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
 
         //observe if a user is logged or not
-        FirebaseUserLiveData().observe(this, Observer { authenticationState ->
+        FirebaseUserLiveData().observe(this, { authenticationState ->
             if (authenticationState == null) {
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -72,9 +74,6 @@ class MainActivity : AppCompatActivity(),
 
         // Set up the BottomAppBar menu
         binding.bottomAppBar.apply {
-            setNavigationOnClickListener {
-                TODO()
-            }
             setOnMenuItemClickListener(this@MainActivity)
         }
 
@@ -93,11 +92,11 @@ class MainActivity : AppCompatActivity(),
             R.id.homeFragment -> {
                 setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
             }
-            R.id.newControlFragment -> {
-                setBottomAppBarForNewControl()
+            R.id.newMaintenanceFragment -> {
+                setBottomAppBarForNewMaintenance()
             }
             R.id.maintenanceFragment -> {
-                setBottomAppBarForNewControl()
+                setBottomAppBarForNewMaintenance()
             }
             R.id.newExtinguisherFragment -> {
                 setBottomAppBarForNewExtinguisher()
@@ -126,7 +125,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    private fun setBottomAppBarForNewControl() {
+    private fun setBottomAppBarForNewMaintenance() {
         hideBottomAppBar()
     }
 
@@ -166,7 +165,7 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
-        val directions = NewMaintenanceFragmentDirections.actionGlobalNewControlFragment()
+        val directions = NewMaintenanceFragmentDirections.actionGlobalNewMaintenanceFragment()
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
 
@@ -189,11 +188,13 @@ class MainActivity : AppCompatActivity(),
             R.id.new_extinguisher -> {
                 navigateToNewExtinguisher()
             }
-            R.id.new_company -> {
-                TODO()
-            }
         }
         return true
+    }
+
+    fun showDatePickerDialog() {
+        val newFragment = DatePickerFragment()
+        newFragment.show(supportFragmentManager, "datePicker")
     }
 
 }

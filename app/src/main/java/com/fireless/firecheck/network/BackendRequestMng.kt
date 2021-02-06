@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fireless.firecheck.data.User
+import com.fireless.firecheck.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.CoroutineScope
@@ -59,7 +59,7 @@ object FirebaseDBMng {
                     dbReference.setValue(user)
                         .addOnSuccessListener {
                             Log.d(TAG, "user saved on firebase database")
-                            //saveUserOnBackend(currentUser.uid)
+                            saveUserOnBackend(currentUser.uid)
                             Toast.makeText(view?.context, "Recorded correctly, we're almost there.", Toast.LENGTH_SHORT).show()
                         }
                 }
@@ -69,6 +69,18 @@ object FirebaseDBMng {
             }
         })
 
+    }
+
+    private fun saveUserOnBackend(uuid: String) {
+        coroutineScope.launch {
+            val setUserDeferred = UserApi.retrofitServiceSetUser.setUser(uuid)
+            try {
+                val result = setUserDeferred.await()
+                Log.e(TAG, "$result")
+            } catch (e: Exception) {
+                Log.e(TAG, "$e")
+            }
+        }
     }
 
 

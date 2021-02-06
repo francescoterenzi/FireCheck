@@ -1,4 +1,4 @@
-package com.fireless.firecheck
+package com.fireless.firecheck.ui.maintenance
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentMaintenanceBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CameraPosition

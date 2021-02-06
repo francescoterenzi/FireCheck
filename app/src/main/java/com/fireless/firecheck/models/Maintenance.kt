@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fireless.firecheck.data
+package com.fireless.firecheck.models
 
 import androidx.recyclerview.widget.DiffUtil
 

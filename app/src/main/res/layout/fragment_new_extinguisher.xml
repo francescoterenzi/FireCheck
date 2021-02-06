@@ -1,9 +1,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data/>
-
+    <data>
+        <variable
+            name="viewModel"
+            type="com.fireless.firecheck.ui.extinguisher.NewExtinguisherViewModel" />
+    </data>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -44,9 +46,9 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:padding="@dimen/min_icon_target_padding"
                         android:layout_marginStart="@dimen/grid_1"
-                        android:contentDescription="TODO"
                         android:background="?attr/actionBarItemBackground"
-                        app:srcCompat="@drawable/ic_close_24"/>
+                        app:srcCompat="@drawable/ic_close_24"
+                        android:contentDescription="@string/close_button" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -57,11 +59,12 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/extinguisher_id"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
-                        android:hint="TODO"
+                        android:hint="@string/extinguisher_id"
                         app:counterEnabled="true"
                         app:counterMaxLength="10"
                         app:errorEnabled="true"
@@ -69,23 +72,7 @@
                         app:helperTextEnabled="true"
                         app:placeholderText="TODO">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:hint="TODO"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="10"
-                        app:errorEnabled="true"
-                        app:helperText="TODO"
-                        app:helperTextEnabled="true"
-                        app:placeholderText="TODO">
-                        <com.google.android.material.textfield.TextInputEditText
+                            android:text="@{viewModel.extinguisherId}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +85,7 @@
                         android:layout_margin="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:hint="TODO"
+                        android:hint="@string/address"
                         app:counterEnabled="true"
                         app:counterMaxLength="10"
                         app:errorEnabled="true"
@@ -119,6 +106,16 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fetch_address"
                         android:onClick="fetchAddressButtonHandler" />
+
+                    <Button
+                        android:id="@+id/new_extinguisher_btn"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/address_input"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_the_extignuisher"
+                        android:onClick="@{(v) -> viewModel.createExtinguisher(v)}" />
 
                 </LinearLayout>
 

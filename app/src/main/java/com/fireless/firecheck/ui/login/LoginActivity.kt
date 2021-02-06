@@ -1,8 +1,9 @@
-package com.fireless.firecheck
+package com.fireless.firecheck.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

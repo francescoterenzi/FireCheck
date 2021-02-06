@@ -20,11 +20,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import com.fireless.firecheck.BuildConfig
 import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentNewExtinguisherBinding
+import com.fireless.firecheck.ui.home.HomeViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
@@ -32,9 +34,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.transition.MaterialContainerTransform
 
+@Suppress("DEPRECATION")
 class NewExtinguisherFragment : Fragment() {
 
     private val TAG = FragmentNewExtinguisherBinding::class.java.simpleName
+
+    private val viewModel: NewExtinguisherViewModel by lazy {
+        ViewModelProvider(this).get(NewExtinguisherViewModel::class.java)
+    }
 
     private lateinit var binding: FragmentNewExtinguisherBinding
 
@@ -84,16 +91,14 @@ class NewExtinguisherFragment : Fragment() {
      */
     private lateinit var fetchAddressButton: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNewExtinguisherBinding.inflate(inflater, container, false)
+
+        binding.viewModel = viewModel
 
         resultReceiver = AddressResultReceiver(Handler())
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -264,7 +269,6 @@ class NewExtinguisherFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
-        savedInstanceState ?: return
 
         with(savedInstanceState) {
             // Save whether the address has been requested.
@@ -280,7 +284,7 @@ class NewExtinguisherFragment : Fragment() {
     /**
      * Receiver for data sent from FetchAddressIntentService.
      */
-    private inner class AddressResultReceiver internal constructor(
+    private inner class AddressResultReceiver(
         handler: Handler
     ) : ResultReceiver(handler) {
 
@@ -343,12 +347,14 @@ class NewExtinguisherFragment : Fragment() {
         // request previously, but didn't check the "Don't ask again" checkbox.
         if (shouldProvideRationale) {
             Log.i(TAG, "Displaying permission rationale to provide additional context.")
-            showSnackbar(R.string.permission_rationale, android.R.string.ok,
-                View.OnClickListener {
-                    ActivityCompat.requestPermissions(requireActivity(),
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        REQUEST_PERMISSIONS_REQUEST_CODE);
-                })
+            showSnackbar(R.string.permission_rationale, android.R.string.ok
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_PERMISSIONS_REQUEST_CODE
+                );
+            }
 
         } else {
             Log.i(TAG, "Requesting permission")
@@ -394,18 +400,28 @@ class NewExtinguisherFragment : Fragment() {
                 // when permissions are denied. Otherwise, your app could appear unresponsive to
                 // touches or interactions which have required permissions.
 
-                showSnackbar(R.string.permission_denied_explanation, R.string.settings,
-                    View.OnClickListener {
-                        // Build intent that displays the App settings screen.
-                        val intent = Intent().apply {
-                            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                            data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        }
-                        startActivity(intent)
-                    })
+                showSnackbar(R.string.permission_denied_explanation, R.string.settings
+                ) {
+                    // Build intent that displays the App settings screen.
+                    val intent = Intent().apply {
+                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                        data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    startActivity(intent)
+                }
         }
 
+    }
+
+    /**
+     * Method for displaying a Toast error message for network errors.
+     */
+    private fun onNetworkError() {
+        if (!viewModel.isNetworkErrorShown.value!!) {
+            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+            viewModel.onNetworkErrorShown()
+        }
     }
 
 }

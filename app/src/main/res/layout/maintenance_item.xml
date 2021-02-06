@@ -21,7 +21,7 @@
     <data>
         <variable
             name="maintenance"
-            type="com.fireless.firecheck.data.Maintenance" />
+            type="com.fireless.firecheck.models.Maintenance" />
         <variable
             name="listener"
             type="com.fireless.firecheck.ui.home.MaintenanceAdapter.MaintenanceAdapterListener" />

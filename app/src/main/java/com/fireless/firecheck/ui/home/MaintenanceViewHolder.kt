@@ -18,7 +18,7 @@ package com.fireless.firecheck.ui.home
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.fireless.firecheck.data.Maintenance
+import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.databinding.MaintenanceItemBinding
 
 

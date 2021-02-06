@@ -20,8 +20,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.fireless.firecheck.data.Maintenance
-import com.fireless.firecheck.data.MaintenanceDiffCallback
+import com.fireless.firecheck.models.Maintenance
+import com.fireless.firecheck.models.MaintenanceDiffCallback
 import com.fireless.firecheck.databinding.MaintenanceItemBinding
 
 /**

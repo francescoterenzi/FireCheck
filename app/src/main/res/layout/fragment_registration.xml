@@ -1,14 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.registration.RegistrationFragment">
+    tools:context="com.example.android.navigation.RegistrationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fireless.firecheck.ui.registration.RegistrationViewModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_text_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:theme="@style/Widget.Design.TextInputLayout"
+                app:endIconMode="custom"
+                app:error="@{viewModel.emailError}"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/password_text_input"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_edittext_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="E-Mail"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_text_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:theme="@style/Widget.Design.TextInputLayout"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:endIconMode="custom"
+                app:error="@{viewModel.passwordError}"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/confirmPassword_text_input"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_text_input">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_edittext_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.password}"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirmPassword_text_input"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:theme="@style/Widget.Design.TextInputLayout"
+                android:layout_marginEnd="8dp"
+                app:endIconMode="custom"
+                app:error="@{viewModel.confirmPasswordError}"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/register_button_register"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.51"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_text_input">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmPassword_edittext_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.confirmPassword}"
+                    android:hint="Confirm password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/register_button_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{(v) -> viewModel.performRegistration(v)}"
+                android:text="Register"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/red_200"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/already_have_account_text_view"
+                app:layout_constraintEnd_toEndOf="@+id/confirmPassword_text_input"
+                app:layout_constraintStart_toStartOf="@+id/confirmPassword_text_input"
+                app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text_input" />
+
+            <TextView
+                android:id="@+id/already_have_account_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{(v) -> viewModel.moveToLogin(v)}"
+                android:text="Already registered? Login"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="@+id/register_button_register"
+                app:layout_constraintStart_toStartOf="@+id/register_button_register"
+                app:layout_constraintTop_toBottomOf="@+id/register_button_register" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

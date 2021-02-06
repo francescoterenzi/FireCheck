@@ -16,7 +16,7 @@
             app:exitAnim="@anim/fragment_close_exit"
             tools:ignore="PrivateResource" />
         <action
-            android:id="@+id/action_loginFragment_to_loggedActivity"
+            android:id="@+id/action_loginFragment_to_mainActivity"
             app:destination="@id/mainActivity"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_close_exit"
@@ -34,7 +34,7 @@
             app:exitAnim="@anim/fragment_close_exit"
             tools:ignore="PrivateResource" />
         <action
-            android:id="@+id/action_registrationFragment_to_loggedActivity"
+            android:id="@+id/action_registrationFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
     </fragment>
     <activity

@@ -16,13 +16,16 @@
             app:destination="@id/maintenanceFragment" />
     </fragment>
     <fragment
-        android:id="@+id/newControlFragment"
-        android:name="com.fireless.firecheck.NewMaintenanceFragment"
-        android:label="fragment_new_control"
-        tools:layout="@layout/fragment_new_maintenance" />
+        android:id="@+id/newMaintenanceFragment"
+        android:name="com.fireless.firecheck.ui.maintenance.NewMaintenanceFragment"
+        tools:layout="@layout/fragment_new_maintenance">
+        <action
+            android:id="@+id/action_newMaintenanceFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <action
-        android:id="@+id/action_global_newControlFragment"
-        app:destination="@+id/newControlFragment" />
+        android:id="@+id/action_global_newMaintenanceFragment"
+        app:destination="@+id/newMaintenanceFragment" />
     <action
         android:id="@+id/action_global_homeFragment"
         app:destination="@+id/homeFragment"
@@ -37,7 +40,7 @@
         app:popUpToInclusive="true"/>
     <fragment
         android:id="@+id/maintenanceFragment"
-        android:name="com.fireless.firecheck.MaintenanceFragment"
+        android:name="com.fireless.firecheck.ui.maintenance.MaintenanceFragment"
         android:label="fragment_maintenance"
         tools:layout="@layout/fragment_maintenance">
         <argument
@@ -48,5 +51,9 @@
         android:id="@+id/newExtinguisherFragment"
         android:name="com.fireless.firecheck.ui.extinguisher.NewExtinguisherFragment"
         android:label="fragment_new_extinguisher"
-        tools:layout="@layout/fragment_new_extinguisher" />
+        tools:layout="@layout/fragment_new_extinguisher" >
+        <action
+            android:id="@+id/action_newExtinguisherFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
