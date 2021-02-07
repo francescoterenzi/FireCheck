@@ -18,8 +18,8 @@
 
     <data>
         <variable
-            name="maintenance"
-            type="com.fireless.firecheck.models.Maintenance" />
+            name="viewModel"
+            type="com.fireless.firecheck.ui.maintenance.MaintenanceViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -55,7 +55,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/navigation_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="TODO"
+                    android:text="@{viewModel.maintenance.dateOfControl}"
                     android:textAppearance="?attr/textAppearanceHeadline3"
                     tools:text="High school reunion" />
 
@@ -80,7 +80,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/subject_text_view"
-                    android:text="TODO"
+                    android:text="@{viewModel.extinguisher.typology}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     tools:text="Ali Connors -- 12m" />
 
@@ -93,7 +93,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sender_text_view"
-                    android:text="TODO"
+                    android:text="@{viewModel.company.name}"
                     android:textAppearance="?attr/textAppearanceCaption" />
 
 
@@ -105,7 +105,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recipient_text_view"
-                    android:text="TODO"
+                    android:text="@{viewModel.company.address}"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                     <com.google.android.gms.maps.MapView

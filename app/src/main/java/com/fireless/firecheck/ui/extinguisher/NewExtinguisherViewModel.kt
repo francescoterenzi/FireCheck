@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import com.fireless.firecheck.R
 import com.fireless.firecheck.network.ExtinguisherApi
+import com.fireless.firecheck.util.ApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,6 +18,14 @@ private const val TAG = "NEW EXT VIEW MODEL"
 
 class NewExtinguisherViewModel : ViewModel() {
 
+    var extinguisherId = ""
+    var weight = ""
+    var typology = ""
+    var companyId = ""
+
+    private val _status = MutableLiveData<ApiStatus>()
+    val status: LiveData<ApiStatus>
+        get() = _status
 
     private val _extinguisherIdError = MutableLiveData<String>()
     val extinguisherIdError: LiveData<String>
@@ -50,21 +59,20 @@ class NewExtinguisherViewModel : ViewModel() {
         get() = _isNetworkErrorShown
 
 
-    val extinguisherId = ""
-    val weight = ""
-    val typology = ""
-    val companyId = ""
-
     fun createExtinguisher(view: View) {
-        if (!isFormDataValid())
+
+        if (!isFormDataValid()) {
             return
+        }
 
         coroutineScope.launch {
             val setPropertiesDeferred = ExtinguisherApi
                 .retrofitServiceSetExtinguisher
                 .setExtinguisher(extinguisherId, weight, typology, companyId)
             try {
+                _status.value = ApiStatus.LOADING
                 setPropertiesDeferred.await()
+                _status.value = ApiStatus.DONE
                 view.findNavController().navigate(R.id.action_newExtinguisherFragment_to_homeFragment)
 
             } catch (e: Exception) {
@@ -95,15 +103,19 @@ class NewExtinguisherViewModel : ViewModel() {
 
             if (extinguisherId.isEmpty()) {
                 _extinguisherIdError.value = "Please insert a valid extinguisherId"
+                Log.d("HERE", "HERE1")
             }
             if (weight.isEmpty()) {
                 _typologyError.value = "Please insert the weight"
+                Log.d("HERE", "HERE2")
             }
             if (companyId.isEmpty()) {
-                _typologyError.value = "Please insert the company name"
+                _typologyError.value = "Please insert the company ID"
+                Log.d("HERE", "HERE3")
             }
             if (typology.isEmpty()) {
                 _typologyError.value = "Please insert the typology"
+                Log.d("HERE", "HERE4")
             }
             result = false
         }

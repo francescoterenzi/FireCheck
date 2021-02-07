@@ -15,15 +15,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+
 private const val TAG = "NEW MAINT VIEW MODEL"
 
 class NewMaintenanceViewModel : ViewModel() {
+
+    var extinguisherId: String = ""
+    var date: String = ""
+
+    private val _extinguisherIdError = MutableLiveData<String>()
+    val extinguisherIdError: LiveData<String>
+        get() = _extinguisherIdError
+
+    private val _dateError = MutableLiveData<String>()
+    val dateError: LiveData<String>
+        get() = _dateError
 
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(
-        viewModelJob + Dispatchers.Main)
+        viewModelJob + Dispatchers.Main
+    )
 
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
@@ -33,15 +46,22 @@ class NewMaintenanceViewModel : ViewModel() {
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
+    init {
+        _extinguisherIdError.value = ""
+        _dateError.value = ""
+    }
 
-    var extinguisherId: String = ""
 
     fun createMaintenance(view: View) {
+
+        if (!isFormDataValid())
+            return
+
         coroutineScope.launch {
             val setPropertiesDeferred = MaintenanceApi
                 .retrofitServiceSetMaintenance
                 .setMaintenance(
-                    "Luglio 2020",
+                    date,
                     extinguisherId,
                     auth.currentUser!!.uid
                 )
@@ -58,5 +78,24 @@ class NewMaintenanceViewModel : ViewModel() {
             }
         }
     }
+
+    private fun isFormDataValid(): Boolean {
+        var validForm = true
+
+        _extinguisherIdError.value = null
+        _dateError.value = null
+
+        if (extinguisherId.isEmpty() || date.isEmpty()) {
+            if (extinguisherId.isEmpty())
+                _extinguisherIdError.value = "Please insert a valid extinguisher ID"
+            if (date.isEmpty())
+                _dateError.value = "Please insert the maintenance date"
+            validForm = false
+
+        }
+
+        return validForm
+    }
+
 
 }

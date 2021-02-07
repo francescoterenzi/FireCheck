@@ -1,17 +1,11 @@
 package com.fireless.firecheck
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
-import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.fireless.firecheck.databinding.ActivityMainBinding
 import com.fireless.firecheck.network.FirebaseDBMng
@@ -19,15 +13,15 @@ import com.fireless.firecheck.network.FirebaseUserLiveData
 import com.fireless.firecheck.ui.company.NewCompanyFragmentDirections
 import com.fireless.firecheck.ui.extinguisher.NewExtinguisherFragmentDirections
 import com.fireless.firecheck.ui.login.LoginActivity
-import com.fireless.firecheck.ui.maintenance.DatePickerFragment
 import com.fireless.firecheck.ui.maintenance.NewMaintenanceFragmentDirections
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.transition.MaterialElevationScale
+import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialView
 import com.materialstudies.reply.util.contentView
 
 
-class MainActivity : AppCompatActivity(),
-        Toolbar.OnMenuItemClickListener,
-        NavController.OnDestinationChangedListener {
+class MainActivity : AppCompatActivity() {
 
 
     private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
@@ -50,112 +44,71 @@ class MainActivity : AppCompatActivity(),
             } else {
                 // initialization of user info (Firebase realtime database)
                 FirebaseDBMng.initFirebaseDB()
-                setUpBottomNavigationAndFab()
+                setUpFab()
+                //setUpBottomNavigationAndFab()
             }
         })
     }
 
-    private fun setUpBottomNavigationAndFab() {
-        // Wrap binding.run to ensure ContentViewBindingDelegate is calling this Activity's
-        // setContentView before accessing views
-        binding.run {
-            findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener(
-                this@MainActivity
-            )
-        }
-
-        // Set a custom animation for showing and hiding the FAB
+    private fun setUpFab() {
         binding.fab.apply {
-            setShowMotionSpecResource(R.animator.fab_show)
-            setHideMotionSpecResource(R.animator.fab_hide)
-            setOnClickListener {
-                navigateToNewMaintenance()
-            }
-        }
-
-        // Set up the BottomAppBar menu
-        binding.bottomAppBar.apply {
-            setOnMenuItemClickListener(this@MainActivity)
-        }
-
-    }
-
-    override fun onDestinationChanged(
-        controller: NavController,
-        destination: NavDestination,
-        arguments: Bundle?
-    ) {
-        // Set the currentEmail being viewed so when the FAB is pressed, the correct email
-        // reply is created. In a real app, this should be done in a ViewModel but is done
-        // here to keep things simple. Here we're also setting the configuration of the
-        // BottomAppBar and FAB based on the current destination.
-        when (destination.id) {
-            R.id.homeFragment -> {
-                setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
-            }
-            R.id.newMaintenanceFragment -> {
-                setBottomAppBarForNewMaintenance()
-            }
-            R.id.maintenanceFragment -> {
-                setBottomAppBarForNewMaintenance()
-            }
-            R.id.newExtinguisherFragment -> {
-                setBottomAppBarForNewExtinguisher()
-            }
-            R.id.newCompanyFragment -> {
-                setBottomAppBarForNewExtinguisher()
-            }
-        }
-    }
 
 
-    @MenuRes
-    private fun getBottomAppBarMenuForDestination(destination: NavDestination? = null): Int {
-        val dest = destination ?: findNavController(R.id.nav_host_fragment).currentDestination
-        return when (dest?.id) {
-            R.id.homeFragment -> R.menu.bottom_app_bar_home_menu
-            else -> R.menu.bottom_app_bar_home_menu
-        }
-    }
+            addActionItem(SpeedDialActionItem.Builder(
+                R.id.fab_maintenance,
+                R.drawable.ic_baseline_playlist_add_24)
+                .setLabelColor(Color.WHITE)
+                .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.white, theme))
+                .setLabelBackgroundColor(ResourcesCompat.getColor(resources, R.color.blue_600, theme))
+                .setFabSize(FloatingActionButton.SIZE_NORMAL)
+                .setLabel("New maintenance")
+                .setLabelClickable(false)
+                .create())
 
-    private fun setBottomAppBarForHome(@MenuRes menuRes: Int) {
-        binding.run {
-            fab.setImageState(intArrayOf(-android.R.attr.state_activated), true)
-            bottomAppBar.visibility = View.VISIBLE
-            bottomAppBar.replaceMenu(menuRes)
-            //fab.contentDescription = getString(0)
-            bottomAppBar.performShow()
-            fab.show()
-        }
-    }
+            addActionItem(SpeedDialActionItem.Builder(
+                R.id.fab_extinguisher,
+                R.drawable.ic_baseline_fire_extinguisher_24)
+                .setLabelColor(Color.WHITE)
+                .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.white, theme))
+                .setLabelBackgroundColor(ResourcesCompat.getColor(resources, R.color.blue_600, theme))
+                .setFabSize(FloatingActionButton.SIZE_NORMAL)
+                .setLabel("New extinguisher")
+                .setLabelClickable(false)
+                .create())
 
-    private fun setBottomAppBarForNewMaintenance() {
-        hideBottomAppBar()
-    }
+            addActionItem(SpeedDialActionItem.Builder(
+                R.id.fab_company,
+                R.drawable.ic_baseline_add_business_24)
+                .setLabelColor(Color.WHITE)
+                .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.white, theme))
+                .setLabelBackgroundColor(ResourcesCompat.getColor(resources, R.color.blue_600, theme))
+                .setFabSize(FloatingActionButton.SIZE_NORMAL)
+                .setLabel("New company")
+                .setLabelClickable(false)
+                .create())
 
-    private fun setBottomAppBarForNewExtinguisher() {
-        hideBottomAppBar()
-    }
 
-    private fun hideBottomAppBar() {
-        binding.run {
-            bottomAppBar.performHide()
-            // Get a handle on the animator that hides the bottom app bar so we can wait to hide
-            // the fab and bottom app bar until after it's exit animation finishes.
-            bottomAppBar.animate().setListener(object : AnimatorListenerAdapter() {
-                var isCanceled = false
-                override fun onAnimationEnd(animation: Animator?) {
-                    if (isCanceled) return
-
-                    // Hide the BottomAppBar to avoid it showing above the keyboard
-                    // when composing a new email.
-                    bottomAppBar.visibility = View.GONE
-                    fab.visibility = View.INVISIBLE
+            setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+                when (actionItem.id) {
+                    R.id.fab_maintenance -> {
+                        navigateToNewMaintenance()
+                        close() // To close the Speed Dial with animation
+                        return@OnActionSelectedListener true // false will close it without animation
+                    }
+                    R.id.fab_extinguisher -> {
+                        navigateToNewExtinguisher()
+                        close()
+                        return@OnActionSelectedListener true
+                    }
+                    R.id.fab_company -> {
+                        navigateToNewCompany()
+                        close()
+                        return@OnActionSelectedListener false
+                    }
                 }
-                override fun onAnimationCancel(animation: Animator?) {
-                    isCanceled = true
-                }
+                true // To keep the Speed Dial open
             })
+
         }
     }
 
@@ -201,21 +154,12 @@ class MainActivity : AppCompatActivity(),
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.new_extinguisher -> {
-                navigateToNewExtinguisher()
-            }
-            R.id.new_company ->  {
-                navigateToNewCompany()
-            }
-        }
-        return true
-    }
-
+    /*
     fun showDatePickerDialog() {
         val newFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
     }
+
+     */
 
 }

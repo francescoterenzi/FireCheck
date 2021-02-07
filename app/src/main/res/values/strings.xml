@@ -60,5 +60,9 @@
     <!-- New maintenance form -->
     <string name="register_the_maintenance">Register the maintenance</string>
     <string name="typology">Typology</string>
+    <string name="maintenance_date">Maintenance date</string>
+    <string name="maintenance">Maintenance</string>
+    <string name="extinguisher">Extinguisher</string>
+    <string name="company">Company</string>
 
 </resources>

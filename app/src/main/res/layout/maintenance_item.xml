@@ -61,7 +61,7 @@
                     android:layout_marginStart="@dimen/grid_2"
                     android:layout_marginEnd="@dimen/grid_2"
                     android:maxLines="1"
-                    android:text="Controllo - Luned' 16 Gennaio 2020"
+                    android:text="@{maintenance.dateOfControl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -75,7 +75,7 @@
                     android:textAppearance="?attr/textAppearanceHeadline5"
                     app:layout_goneMarginEnd="@dimen/grid_2"
                     android:maxLines="1"
-                    android:text="Estintore a polvere - 6kg"
+                    android:text="toDODDDDDDD"
                     tools:text="Package Shipped!"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
                     android:layout_marginStart="@dimen/grid_2"
                     android:layout_marginEnd="@dimen/grid_2"
                     android:maxLines="2"
-                    android:text="Fireless Srl - Via Salaria 90, Monterotondo RM"
+                    android:text="TODOOOOOOOOOO"
                     tools:text="Cucumber mask facial has shipped. It'll be on your front door by the end of the week!"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

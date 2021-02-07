@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fireless.firecheck.ui.extinguisher
+package com.fireless.firecheck.util
 
 import android.app.IntentService
 import android.content.Intent
@@ -25,6 +25,7 @@ import android.os.Bundle
 import android.os.ResultReceiver
 import android.util.Log
 import com.fireless.firecheck.R
+import com.fireless.firecheck.ui.extinguisher.Constants
 import java.io.IOException
 import java.util.Locale
 

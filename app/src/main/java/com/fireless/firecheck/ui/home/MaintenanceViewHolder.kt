@@ -16,10 +16,21 @@
 
 package com.fireless.firecheck.ui.home
 
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.databinding.MaintenanceItemBinding
+import com.fireless.firecheck.models.Company
+import com.fireless.firecheck.models.Extinguisher
+import com.fireless.firecheck.network.CompanyApi
+import com.fireless.firecheck.network.ExtinguisherApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 
 class MaintenanceViewHolder(
@@ -34,7 +45,9 @@ class MaintenanceViewHolder(
     }
 
     fun bind(maintenance: Maintenance) {
+
         binding.maintenance = maintenance
+
         binding.executePendingBindings()
     }
 

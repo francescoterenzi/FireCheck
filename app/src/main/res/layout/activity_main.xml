@@ -20,25 +20,25 @@
                     app:defaultNavHost="true"
                     app:navGraph="@navigation/nav_graph" />
 
-                <com.google.android.material.bottomappbar.BottomAppBar
-                    android:id="@+id/bottom_app_bar"
+                <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+                    android:id="@+id/overlay"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-                    app:fabAlignmentMode="center"
-                    app:fabCradleRoundedCornerRadius="@dimen/bottom_app_bar_fab_cradle_corner_radius"
-                    app:fabCradleMargin="@dimen/bottom_app_bar_fab_cradle_margin"
-                    app:menu="@menu/bottom_app_bar_home_menu"
-                    app:hideOnScroll="true" />
+                    android:layout_height="match_parent"
+                    app:clickable_overlay="true"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <com.leinardi.android.speeddial.SpeedDialView
                     android:id="@+id/fab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_anchor="@id/bottom_app_bar"
-                    android:contentDescription="TODO"
-                    app:srcCompat="@drawable/ic_baseline_add_24" />
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="2dp"
+                    app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
+                    app:sdExpansionMode="top"
+                    app:sdMainFabAnimationRotateAngle="90"
+                    app:sdMainFabClosedSrc="@drawable/ic_baseline_add_24"
+                    app:sdMainFabOpenedSrc="@drawable/ic_pencil_alt_white_24dp"
+                    app:sdOverlayLayout="@id/overlay" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

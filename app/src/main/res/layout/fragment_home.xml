@@ -44,17 +44,23 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:name="com.fireless.firecheck.HomeFragment"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            app:layoutManager="LinearLayoutManager"
-            tools:context=".ui.home.HomeFragment"
-            app:listDataMaintenance="@{viewModel.allControls}"
-            tools:listitem="@layout/maintenance_item" />
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:name="com.fireless.firecheck.HomeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:context=".ui.home.HomeFragment"
+                app:listDataMaintenance="@{viewModel.allControls}"
+                tools:listitem="@layout/maintenance_item">
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
 
     </LinearLayout>
 

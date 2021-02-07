@@ -17,15 +17,16 @@
 package com.fireless.firecheck.models
 
 import androidx.recyclerview.widget.DiffUtil
+import com.squareup.moshi.Json
 
 /**
  * A simple data class to represent an Maintenance.
  */
 data class Maintenance(
     val id: Int,
-    val userId: String,
-    val extinguisherId: String
-)
+    @Json(name = "date_of_control") val dateOfControl: String,
+    @Json(name = "user_id") val userId: String,
+    @Json(name = "extinguisher_id") val extinguisherId: String)
 
 object MaintenanceDiffCallback : DiffUtil.ItemCallback<Maintenance>() {
     override fun areItemsTheSame(oldItem: Maintenance, newItem: Maintenance) = oldItem.id == newItem.id

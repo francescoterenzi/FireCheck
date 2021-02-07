@@ -41,26 +41,15 @@ class HomeViewModel : ViewModel() {
 
     private fun getControls() {
         coroutineScope.launch {
-            /*
+
             val getPropertiesDeferred = UserApi
                 .retrofitServiceGetUserControls
                 .getUserControls(FirebaseDBMng.auth.currentUser?.uid.toString())
-            */
-
-            val mList:MutableList<Maintenance> = mutableListOf<Maintenance>()
-
-            val valore=20
-            for (i in 1..valore)
-            {
-                val m = Maintenance(i, "Francesco Terenzi", "1702217")
-                mList.add(m)
-            }
 
             try {
 
                 _status.value = ApiStatus.LOADING
-                //val listResult = getPropertiesDeferred.await()
-                val listResult = mList
+                val listResult = getPropertiesDeferred.await()
                 _allControls.value = listResult
                 _status.value = ApiStatus.DONE
 

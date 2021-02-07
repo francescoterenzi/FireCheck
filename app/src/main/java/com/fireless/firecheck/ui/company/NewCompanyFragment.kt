@@ -2,6 +2,8 @@ package com.fireless.firecheck.ui.company
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -15,6 +17,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -25,7 +28,7 @@ import com.fireless.firecheck.BuildConfig
 import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentNewCompanyBinding
 import com.fireless.firecheck.ui.extinguisher.Constants
-import com.fireless.firecheck.ui.extinguisher.FetchAddressIntentService
+import com.fireless.firecheck.util.FetchAddressIntentService
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
@@ -402,6 +405,27 @@ class NewCompanyFragment : Fragment() {
                 }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        hideKeyboard(requireActivity())
+
+    }
+
+
+    private fun hideKeyboard(activity: Activity) {
+        val inputManager = activity
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // check if no view has focus:
+        val currentFocusedView = activity.currentFocus
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(
+                currentFocusedView.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
     }
 
 }

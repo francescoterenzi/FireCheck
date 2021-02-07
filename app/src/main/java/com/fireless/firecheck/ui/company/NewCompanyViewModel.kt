@@ -18,6 +18,9 @@ private const val TAG = "NEW COMP VIEW MODEL"
 
 class NewCompanyViewModel : ViewModel() {
 
+    var companyId = ""
+    var name = ""
+    var address = ""
 
     private val _companyIdError = MutableLiveData<String>()
     val companyIdError: LiveData<String>
@@ -40,10 +43,6 @@ class NewCompanyViewModel : ViewModel() {
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(
             viewModelJob + Dispatchers.Main)
-
-    val companyId = ""
-    val name = ""
-    val address = ""
 
     fun createCompany(view: View) {
         if (!isFormDataValid())

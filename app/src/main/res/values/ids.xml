@@ -17,6 +17,11 @@
 */
 -->
 <resources>
+
+    <item type="id" name="fab_extinguisher"/>
+    <item type="id" name="fab_company"/>
+    <item type="id" name="fab_maintenance"/>
+
     <item type="id" name="background" />
     <item type="id" name="checkbox" />
     <item type="id" name="content" />

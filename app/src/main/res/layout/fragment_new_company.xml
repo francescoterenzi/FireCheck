@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/company_id"
-                    android:text="@{viewModel.companyId}"
+                    android:text="@={viewModel.companyId}"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +72,7 @@
                     android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.name}"
+                    android:text="@={viewModel.name}"
                     android:hint="@string/name"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +98,7 @@
                     android:id="@+id/address_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.address}"
+                    android:text="@={viewModel.address}"
                     android:hint="@string/address"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>

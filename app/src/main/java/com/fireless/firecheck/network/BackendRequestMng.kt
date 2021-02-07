@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-private const val TAG = "BACKEND MANAGEMENT"
+internal const val TAG = "BACKEND MANAGEMENT"
 
 object FirebaseDBMng {
 

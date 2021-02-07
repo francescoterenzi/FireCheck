@@ -1,28 +1,40 @@
 package com.fireless.firecheck.ui.maintenance
 
+import android.annotation.SuppressLint
 import android.graphics.Color
+import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentMaintenanceBinding
+import com.fireless.firecheck.ui.extinguisher.NewExtinguisherViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 
 
 class MaintenanceFragment : Fragment() {
 
+    private val params by navArgs<MaintenanceFragmentArgs>()
+
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
 
-
     private lateinit var binding: FragmentMaintenanceBinding
+
+    private val viewModel: MaintenanceViewModel by lazy {
+        ViewModelProvider(this).get(MaintenanceViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +54,17 @@ class MaintenanceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentMaintenanceBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
+        viewModel.loadInfo(params.maintenanceId)
+
+        /**
+         * MAPS INIT
+         */
         mapView = binding.mapView
-
         mapView.onCreate(savedInstanceState)
         mapView.onResume()
 
@@ -55,19 +74,19 @@ class MaintenanceFragment : Fragment() {
             e.printStackTrace()
         }
 
-        mapView.getMapAsync(OnMapReadyCallback { mMap ->
+        mapView.getMapAsync { mMap ->
             googleMap = mMap
 
             // For dropping a marker at a point on the Map
             val sydney = LatLng(-34.00, 151.00)
             googleMap.addMarker(
-                MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description")
+                MarkerOptions().position(sydney)
             )
 
             // For zooming automatically to the location of the marker
             val cameraPosition = CameraPosition.Builder().target(sydney).zoom(12f).build()
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-        })
+        }
 
         return binding.root
     }
@@ -79,4 +98,5 @@ class MaintenanceFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+
 }

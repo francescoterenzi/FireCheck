@@ -1,9 +1,12 @@
 package com.fireless.firecheck.ui.extinguisher
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.Slide
@@ -26,9 +29,7 @@ class NewExtinguisherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNewExtinguisherBinding.inflate(inflater, container, false)
-
         binding.viewModel = viewModel
-
         return binding.root
     }
 
@@ -45,6 +46,26 @@ class NewExtinguisherFragment : Fragment() {
             returnTransition = Slide().apply {
                 duration = resources.getInteger(R.integer.motion_duration_medium).toLong()
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        hideKeyboard(requireActivity())
+
+    }
+
+    private fun hideKeyboard(activity: Activity) {
+        val inputManager = activity
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // check if no view has focus:
+        val currentFocusedView = activity.currentFocus
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(
+                currentFocusedView.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
     }
 }

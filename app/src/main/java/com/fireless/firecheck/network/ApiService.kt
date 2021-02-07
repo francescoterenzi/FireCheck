@@ -41,13 +41,11 @@ interface SetUserApiService {
             Deferred<UserProperty>
 }
 
-/*
 interface GetUserControlsApiService {
     @GET("users/{id}/controls")
     fun getUserControls(@Path("id") uuid: String):
             Deferred<List<Maintenance>>
 }
-*/
 
 /**
  * EXTINGUISHER MANAGEMENT
@@ -63,6 +61,13 @@ interface SetExtinguisherApiService {
             Deferred<Extinguisher>
 }
 
+interface GetExtinguisherApiService {
+    @GET("extinguishers/{id}")
+    fun getExtinguisher(@Path("id") id: String):
+            Deferred<Extinguisher>
+}
+
+
 /**
  * MAINTENANCE MANAGEMENT
  */
@@ -73,8 +78,15 @@ interface SetMaintenanceApiService {
             @Field("date_of_control") dateOfControl: String,
             @Field("extinguisher_id") extinguisherId: String,
             @Field("user_id") userId: String):
-            Deferred<Extinguisher>
+            Deferred<Maintenance>
 }
+
+interface GetMaintenanceApiService {
+    @GET("controls/{id}")
+    fun getMaintenance(@Path("id") id: Int):
+            Deferred<Maintenance>
+}
+
 
 /**
  * COMPANY MANAGEMENT
@@ -89,6 +101,12 @@ interface SetCompanyApiService {
             Deferred<Company>
 }
 
+interface GetCompanyApiService {
+    @GET("companies/{id}")
+    fun getCompany(@Path("id") id: String):
+            Deferred<Company>
+}
+
 
 object UserApi {
 
@@ -96,17 +114,19 @@ object UserApi {
         retrofit.create(SetUserApiService::class.java)
     }
 
-    /*
     val retrofitServiceGetUserControls: GetUserControlsApiService by lazy {
         retrofit.create(GetUserControlsApiService::class.java)
     }
-     */
 }
 
 object ExtinguisherApi {
 
     val retrofitServiceSetExtinguisher: SetExtinguisherApiService by lazy {
         retrofit.create(SetExtinguisherApiService::class.java)
+    }
+
+    val retrofitServiceGetExtinguisher: GetExtinguisherApiService by lazy {
+        retrofit.create(GetExtinguisherApiService::class.java)
     }
 
 }
@@ -117,6 +137,10 @@ object MaintenanceApi {
         retrofit.create(SetMaintenanceApiService::class.java)
     }
 
+    val retrofitServiceGetMaintenance: GetMaintenanceApiService by lazy {
+        retrofit.create(GetMaintenanceApiService::class.java)
+    }
+
 }
 
 object CompanyApi {
@@ -124,6 +148,12 @@ object CompanyApi {
     val retrofitServiceSetCompany: SetCompanyApiService by lazy {
         retrofit.create(SetCompanyApiService::class.java)
     }
+
+    val retrofitServiceGetCompany: GetCompanyApiService by lazy {
+        retrofit.create(GetCompanyApiService::class.java)
+    }
+
 }
+
 
 
