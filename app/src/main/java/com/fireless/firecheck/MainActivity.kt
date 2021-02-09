@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.fireless.firecheck.databinding.ActivityMainBinding
 import com.fireless.firecheck.network.FirebaseDBMng
 import com.fireless.firecheck.network.FirebaseUserLiveData

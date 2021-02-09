@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.facebook.login.LoginManager
 import com.fireless.firecheck.R
 import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.databinding.FragmentHomeBinding
@@ -50,7 +51,7 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -62,7 +63,7 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
         binding.viewModel = viewModel
 
         // Observer for the network error.
-        viewModel.status.observe(viewLifecycleOwner, Observer { status ->
+        viewModel.status.observe(viewLifecycleOwner, { status ->
             if (status == ApiStatus.ERROR) onNetworkError()
         })
 
@@ -76,11 +77,12 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         binding.run {
+
             logout.setOnClickListener {
                 activityScope.launch {
-
                     FirebaseAuth.getInstance().signOut()
                     FirebaseDBMng.resetUserInfo()
+                    LoginManager.getInstance().logOut()
                 }
             }
         }

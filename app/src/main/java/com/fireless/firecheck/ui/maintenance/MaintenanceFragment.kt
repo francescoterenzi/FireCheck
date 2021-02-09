@@ -14,12 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentMaintenanceBinding
-import com.fireless.firecheck.ui.extinguisher.NewExtinguisherViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 
 
@@ -53,7 +51,7 @@ class MaintenanceFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMaintenanceBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel

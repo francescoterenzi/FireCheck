@@ -14,7 +14,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -31,10 +32,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="32dp"
                 app:endIconMode="custom"
                 app:error="@{viewModel.companyIdError}"
@@ -58,9 +57,7 @@
                 android:theme="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 app:endIconMode="custom"
                 app:error="@{viewModel.nameError}"
                 app:errorEnabled="true"
@@ -83,9 +80,7 @@
                 android:theme="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 app:error="@{viewModel.addressError}"
                 app:errorEnabled="true"
                 app:layout_constraintTop_toBottomOf="@+id/company_name"
@@ -104,10 +99,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/new_company_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:id="@+id/register_button_register"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/red_400"
+                android:layout_marginTop="20dp"
                 android:text="@string/register_the_company"
                 android:onClick="@{(v) -> viewModel.createCompany(v)}"
                 android:textColor="@android:color/white"
@@ -115,11 +113,8 @@
                 android:gravity="center"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif"
-                android:backgroundTint="@color/red_200"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

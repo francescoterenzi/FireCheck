@@ -18,23 +18,38 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="95dp"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/logo"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/fireless_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/first_name_text_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="75dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="5dp"
+                android:paddingBottom="15dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
                 app:endIconMode="custom"
                 app:error="@{viewModel.firstNameError}"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/last_name_text_input"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/imageView">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/first_name_edit_text"
@@ -49,17 +64,18 @@
                 android:id="@+id/last_name_text_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="75dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="5dp"
+                android:paddingBottom="15dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
                 app:endIconMode="custom"
                 app:error="@{viewModel.lastNameError}"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/first_name_text_input"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/imageView">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/last_name_edit_text"
@@ -72,12 +88,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_text_input"
+                android:layout_width="match_parent"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="75dp"
+                android:layout_marginBottom="4dp"
+                android:paddingBottom="15dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
                 app:endIconMode="custom"
                 app:error="@{viewModel.emailError}"
@@ -101,11 +116,10 @@
                 android:id="@+id/password_text_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_height="75dp"
+                android:layout_marginBottom="4dp"
+                android:paddingBottom="15dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 app:endIconMode="custom"
                 app:error="@{viewModel.passwordError}"
                 app:errorEnabled="true"
@@ -127,10 +141,10 @@
                 android:id="@+id/confirmPassword_text_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_height="75dp"
+                android:layout_marginBottom="4dp"
+                android:paddingBottom="15dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_marginEnd="8dp"
                 app:endIconMode="custom"
                 app:error="@{viewModel.confirmPasswordError}"
                 app:errorEnabled="true"
@@ -145,24 +159,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={viewModel.confirmPassword}"
-                    android:hint="Confirm password"
+                    android:hint="@string/confirm_password"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/register_button_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/red_400"
+                android:layout_marginTop="20dp"
+                android:text="@string/new_account"
                 android:onClick="@{(v) -> viewModel.performRegistration(v)}"
-                android:text="@string/register"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
+                android:gravity="center"
                 android:textSize="18sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/already_have_account_text_view"
+                android:fontFamily="sans-serif"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/confirmPassword_text_input" />
+                app:layout_constraintTop_toBottomOf="@id/confirmPassword_text_input"/>
 
             <TextView
                 android:id="@+id/already_have_account_text_view"

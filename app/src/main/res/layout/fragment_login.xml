@@ -18,19 +18,31 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="95dp"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/logo"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/fireless_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_text_login"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_height="75dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="32dp"
+                android:paddingBottom="15dp"
                 app:endIconMode="custom"
                 app:error="@{viewModel.emailError}"
                 app:errorEnabled="true"
@@ -38,13 +50,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/imageView">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_edittext_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="E-mail"
+                    android:hint="@string/e_mail"
                     android:text="@={viewModel.email}"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -54,16 +66,12 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:theme="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="75dp"
+                android:paddingBottom="15dp"
                 app:endIconMode="custom"
                 app:error="@{viewModel.passwordError}"
                 app:errorEnabled="true"
-                app:layout_constraintBottom_toTopOf="@+id/login_button_login"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email_text_login">
 
@@ -72,44 +80,73 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={viewModel.password}"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/login_button_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="Login"
+                android:id="@+id/login_button"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/red_400"
+                android:layout_marginTop="20dp"
+                android:text="@string/login"
                 android:onClick="@{(v) -> viewModel.performLogin(v)}"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif"
-                android:backgroundTint="@color/red_200"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toTopOf="@id/back_to_register_textview"
-                app:layout_constraintEnd_toEndOf="@+id/password_text_login"
-                app:layout_constraintStart_toStartOf="@+id/password_text_login"
-                app:layout_constraintTop_toBottomOf="@+id/password_text_login" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password_text_login"/>
 
 
             <TextView
                 android:id="@+id/back_to_register_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Register"
+                android:text="@string/don_t_have_an_account_register_now"
                 android:textAlignment="center"
                 android:onClick="@{(v) -> viewModel.goToRegister(v)}"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/login_button_login"
+                app:layout_constraintTop_toBottomOf="@id/login_button"
+                app:layout_constraintBottom_toTopOf="@id/FrameLayout1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <FrameLayout
+                android:id="@+id/FrameLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="70dp"
+                app:layout_constraintTop_toBottomOf="@id/back_to_register_textview">
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebook_login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/fb"
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:text = "@string/continue_with_facebook"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif"
+                    android:backgroundTint="#3B5998"
+                    android:textAllCaps="false"
+                    android:textSize="22sp"
+                    android:textColor="#ffffff" />
+            </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

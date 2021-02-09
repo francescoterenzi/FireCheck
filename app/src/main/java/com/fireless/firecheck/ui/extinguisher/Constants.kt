@@ -24,7 +24,7 @@ object Constants {
 
     const val FAILURE_RESULT = 1
 
-    private const val PACKAGE_NAME = "com.google.android.gms.location.sample.locationaddress"
+    private const val PACKAGE_NAME = "com.fireless.firecheck"
 
     const val RECEIVER = "$PACKAGE_NAME.RECEIVER"
 

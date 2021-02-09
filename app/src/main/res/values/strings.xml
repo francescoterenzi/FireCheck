@@ -65,4 +65,13 @@
     <string name="extinguisher">Extinguisher</string>
     <string name="company">Company</string>
 
+    <string name="facebook_app_id">3489856041082244</string>
+    <string name="fb_login_protocol_scheme">fb3489856041082244</string>
+    <string name="fireless_logo">Fireless logo</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="new_account">New account</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_register_now">Don\'t have an account? Register now</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+
 </resources>

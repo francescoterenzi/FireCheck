@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="typology">
+        <item>ABC POWDER</item>
+        <item>CARBON DIOXIDE</item>
+        <item>WET CHEMICAL</item>
+        <item>WATER MIST</item>
+        <item>FOAM</item>
+        <item>CLEAN AGENT</item>
+    </string-array>
+</resources>

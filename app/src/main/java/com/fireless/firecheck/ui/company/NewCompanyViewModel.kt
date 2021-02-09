@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import com.fireless.firecheck.R
 import com.fireless.firecheck.network.CompanyApi
-import com.fireless.firecheck.util.ApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

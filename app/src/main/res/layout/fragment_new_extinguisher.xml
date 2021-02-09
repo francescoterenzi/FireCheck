@@ -1,19 +1,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.fireless.firecheck.ui.extinguisher.NewExtinguisherViewModel" />
-    </data>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -21,13 +16,10 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:layout_marginTop="32dp"
                 app:endIconMode="custom"
-                app:error="@{viewModel.extinguisherIdError}"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/weight"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +32,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/extinguisher_id"
-                    android:text="@={viewModel.extinguisherId}"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,14 +41,10 @@
                 android:theme="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 app:endIconMode="custom"
-                app:error="@{viewModel.weightError}"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/extinguisher_id">
 
@@ -65,35 +52,17 @@
                     android:id="@+id/weight_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.weight}"
                     android:hint="@string/weight"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/typology"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:endIconMode="custom"
-                app:error="@{viewModel.typologyError}"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="70dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/weight">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/typology_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.typology}"
-                    android:hint="@string/typology"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weight"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/company_id"
@@ -101,11 +70,8 @@
                 android:theme="@style/Widget.Design.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 app:endIconMode="custom"
-                app:error="@{viewModel.companyIdError}"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,28 +81,26 @@
                     android:id="@+id/company_id_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.companyId}"
                     android:hint="@string/company_id"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/new_extinguisher_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/red_400"
+                android:layout_marginTop="20dp"
                 android:text="@string/register_the_extignuisher"
-                android:onClick="@{(v) -> viewModel.createExtinguisher(v)}"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif"
-                android:backgroundTint="@color/red_200"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/company_id"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
