@@ -3,28 +3,41 @@ package com.fireless.firecheck
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
+import com.facebook.login.LoginManager
 import com.fireless.firecheck.databinding.ActivityMainBinding
+import com.fireless.firecheck.databinding.FragmentHomeBinding
 import com.fireless.firecheck.network.FirebaseDBMng
 import com.fireless.firecheck.network.FirebaseUserLiveData
 import com.fireless.firecheck.ui.company.NewCompanyFragmentDirections
 import com.fireless.firecheck.ui.extinguisher.NewExtinguisherFragmentDirections
+import com.fireless.firecheck.ui.home.MaintenanceAdapter
 import com.fireless.firecheck.ui.login.LoginActivity
+import com.fireless.firecheck.ui.maintenance.DatePickerFragment
 import com.fireless.firecheck.ui.maintenance.NewMaintenanceFragmentDirections
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.transition.MaterialElevationScale
+import com.google.firebase.auth.FirebaseAuth
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import com.materialstudies.reply.util.contentView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
 
+    private val activityScopeJob = SupervisorJob()
+    private val activityScope = CoroutineScope(
+            activityScopeJob + Dispatchers.Main)
 
     private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
 
@@ -55,6 +68,16 @@ class MainActivity : AppCompatActivity() {
     private fun setUpFab() {
         binding.fab.apply {
 
+            addActionItem(SpeedDialActionItem.Builder(
+                    R.id.fab_logout,
+                    R.drawable.ic_baseline_login_24)
+                    .setLabelColor(Color.WHITE)
+                    .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.white, theme))
+                    .setLabelBackgroundColor(ResourcesCompat.getColor(resources, R.color.blue_600, theme))
+                    .setFabSize(FloatingActionButton.SIZE_NORMAL)
+                    .setLabel("Logout")
+                    .setLabelClickable(false)
+                    .create())
 
             addActionItem(SpeedDialActionItem.Builder(
                 R.id.fab_maintenance,
@@ -105,7 +128,15 @@ class MainActivity : AppCompatActivity() {
                     R.id.fab_company -> {
                         navigateToNewCompany()
                         close()
-                        return@OnActionSelectedListener false
+                        return@OnActionSelectedListener true
+                    }
+                    R.id.fab_logout -> {
+                        activityScope.launch {
+                            FirebaseAuth.getInstance().signOut()
+                            FirebaseDBMng.resetUserInfo()
+                            LoginManager.getInstance().logOut()
+                        }
+                        return@OnActionSelectedListener true
                     }
                 }
                 true // To keep the Speed Dial open
@@ -113,6 +144,12 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    fun showDatePickerDialog(v: View) {
+        val newFragment = DatePickerFragment()
+        newFragment.show(supportFragmentManager, "datePicker")
+    }
+
 
     private fun navigateToNewMaintenance() {
         currentNavigationFragment?.apply {
@@ -155,13 +192,5 @@ class MainActivity : AppCompatActivity() {
         val directions = NewCompanyFragmentDirections.actionGlobalNewCompanyFragment()
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
-
-    /*
-    fun showDatePickerDialog() {
-        val newFragment = DatePickerFragment()
-        newFragment.show(supportFragmentManager, "datePicker")
-    }
-
-     */
 
 }

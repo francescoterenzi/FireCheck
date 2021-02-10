@@ -11,78 +11,107 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/new_maintenance_header"
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/extinguisher_id"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <ImageButton
+                    android:id="@+id/close_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/grid_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="?attr/actionBarItemBackground"
+                    app:srcCompat="@drawable/ic_close_24"
+                    android:contentDescription="@string/close" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/new_maintenance_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="32dp"
-                app:endIconMode="custom"
-                app:error="@{viewModel.extinguisherIdError}"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/new_maintenance_header">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/extinguisher_id_edit_text"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/extinguisher_id"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/extinguisher_id"
-                    android:text="@={viewModel.extinguisherId}"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:theme="@style/Widget.Design.TextInputLayout"
+                    android:layout_marginBottom="8dp"
+                    app:endIconMode="custom"
+                    app:error="@{viewModel.extinguisherIdError}"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/maintenance_date"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:endIconMode="custom"
-                app:error="@{viewModel.dateError}"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/extinguisher_id">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/extinguisher_id_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/extinguisher_id"
+                        android:text="@={viewModel.extinguisherId}"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/date_edit_text"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/maintenance_date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.date}"
-                    android:hint="@string/maintenance_date"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:theme="@style/Widget.Design.TextInputLayout"
+                    android:onClick="showDatePickerDialog"
+                    android:layout_marginBottom="8dp"
+                    app:endIconMode="custom"
+                    app:error="@{viewModel.dateError}"
+                    app:errorEnabled="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/extinguisher_id">
 
-            <Button
-                android:id="@+id/new_maintenance_btn"
-                android:layout_width="fill_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:backgroundTint="@color/red_400"
-                android:layout_marginTop="20dp"
-                android:text="@string/register_the_maintenance"
-                android:onClick="@{(v) -> viewModel.createMaintenance(v)}"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/maintenance_date"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/date_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/maintenance_date"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:onClick="showDatePickerDialog" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/new_maintenance_btn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/red_400"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/register_the_maintenance"
+                    android:onClick="@{(v) -> viewModel.createMaintenance(v)}"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/maintenance_date"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

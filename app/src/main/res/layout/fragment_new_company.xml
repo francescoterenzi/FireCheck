@@ -27,96 +27,120 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_centerInParent="true"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/company_id"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/new_company_header"
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/close_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/grid_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="?attr/actionBarItemBackground"
+                    app:srcCompat="@drawable/ic_close_24"
+                    android:contentDescription="@string/close" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="32dp"
-                app:endIconMode="custom"
-                app:error="@{viewModel.companyIdError}"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/new_company_header">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/company_id_edit_text"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/company_id"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/company_id"
-                    android:text="@={viewModel.companyId}"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:theme="@style/Widget.Design.TextInputLayout"
+                    android:layout_marginBottom="4dp"
+                    app:endIconMode="custom"
+                    app:error="@{viewModel.companyIdError}"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/company_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                app:endIconMode="custom"
-                app:error="@{viewModel.nameError}"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/company_id">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/company_id_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/company_id"
+                        android:text="@={viewModel.companyId}"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name_edit_text"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/company_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:theme="@style/Widget.Design.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.name}"
-                    android:hint="@string/name"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="4dp"
+                    app:endIconMode="custom"
+                    app:error="@{viewModel.nameError}"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/company_id">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/address"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                app:error="@{viewModel.addressError}"
-                app:errorEnabled="true"
-                app:layout_constraintTop_toBottomOf="@+id/company_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_baseline_my_location_24"
-                app:endIconContentDescription="@string/my_position_icon">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.name}"
+                        android:hint="@string/name"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address_edit_text"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/address"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:theme="@style/Widget.Design.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.address}"
-                    android:hint="@string/address"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="4dp"
+                    app:error="@{viewModel.addressError}"
+                    app:errorEnabled="true"
+                    app:layout_constraintTop_toBottomOf="@+id/company_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_my_location_24"
+                    app:endIconContentDescription="@string/my_position_icon">
 
-            <Button
-                android:id="@+id/register_button_register"
-                android:layout_width="fill_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:backgroundTint="@color/red_400"
-                android:layout_marginTop="20dp"
-                android:text="@string/register_the_company"
-                android:onClick="@{(v) -> viewModel.createCompany(v)}"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/address"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.address}"
+                        android:hint="@string/address"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
+                <Button
+                    android:id="@+id/register_button_register"
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/red_400"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/register_the_company"
+                    android:onClick="@{(v) -> viewModel.createCompany(v)}"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

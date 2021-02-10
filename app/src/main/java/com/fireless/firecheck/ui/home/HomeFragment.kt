@@ -76,18 +76,6 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-        binding.run {
-
-            logout.setOnClickListener {
-                activityScope.launch {
-                    FirebaseAuth.getInstance().signOut()
-                    FirebaseDBMng.resetUserInfo()
-                    LoginManager.getInstance().logOut()
-                }
-            }
-        }
-
-
     }
 
     override fun onMaintenanceClicked(cardView: View, maintenance: Maintenance) {
@@ -99,11 +87,11 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         }
-        val emailCardDetailTransitionName = getString(R.string.maintenance_card_transition_name)
-        val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
+        //val emailCardDetailTransitionName = getString(R.string.maintenance_card_transition_name)
+        //val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
         val directions =
             HomeFragmentDirections.actionHomeFragmentToMaintenanceFragment(maintenance.id)
-        findNavController().navigate(directions, extras)
+        findNavController().navigate(directions)
     }
 
     /**

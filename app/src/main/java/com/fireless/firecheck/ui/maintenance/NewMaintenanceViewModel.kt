@@ -21,7 +21,7 @@ private const val TAG = "NEW MAINT VIEW MODEL"
 class NewMaintenanceViewModel : ViewModel() {
 
     var extinguisherId: String = ""
-    var date: String = ""
+    var date: MutableLiveData<String> = MutableLiveData()
 
     private val _extinguisherIdError = MutableLiveData<String>()
     val extinguisherIdError: LiveData<String>
@@ -61,10 +61,9 @@ class NewMaintenanceViewModel : ViewModel() {
             val setPropertiesDeferred = MaintenanceApi
                 .retrofitServiceSetMaintenance
                 .setMaintenance(
-                    date,
-                    extinguisherId,
-                    auth.currentUser!!.uid
-                )
+                        date.value!!.toString(),
+                        extinguisherId,
+                        auth.currentUser!!.uid)
             try {
                 _status.value = ApiStatus.LOADING
                 setPropertiesDeferred.await()
@@ -85,16 +84,20 @@ class NewMaintenanceViewModel : ViewModel() {
         _extinguisherIdError.value = null
         _dateError.value = null
 
-        if (extinguisherId.isEmpty() || date.isEmpty()) {
+        if (extinguisherId.isEmpty() || date.value!!.isEmpty()) {
             if (extinguisherId.isEmpty())
                 _extinguisherIdError.value = "Please insert a valid extinguisher ID"
-            if (date.isEmpty())
+            if (date.value!!.isEmpty())
                 _dateError.value = "Please insert the maintenance date"
             validForm = false
 
         }
 
         return validForm
+    }
+
+    fun setDate(date_of_maintenance: String) {
+        date.value = date_of_maintenance
     }
 
 

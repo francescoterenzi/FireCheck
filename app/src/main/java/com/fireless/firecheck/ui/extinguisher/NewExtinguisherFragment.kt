@@ -12,6 +12,7 @@ import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentNewExtinguisherBinding
@@ -99,6 +100,10 @@ class NewExtinguisherFragment : Fragment() {
                 _weight = weightEditText.text.toString()
                 _companyId = companyIdEditText.text.toString()
                 createExtinguisher(view)
+            }
+
+            closeIcon.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
     }

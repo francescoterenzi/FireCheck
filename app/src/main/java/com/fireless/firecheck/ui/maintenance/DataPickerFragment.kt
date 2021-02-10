@@ -23,5 +23,9 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
+            val extraInfoRegistrationViewModel =
+                    ViewModelProvider(requireActivity()).get(NewMaintenanceViewModel::class.java)
+            extraInfoRegistrationViewModel.setDate("$day/$month/$year")
+
     }
 }

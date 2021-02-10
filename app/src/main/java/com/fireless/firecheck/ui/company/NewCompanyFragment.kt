@@ -23,6 +23,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import com.fireless.firecheck.BuildConfig
 import com.fireless.firecheck.R
@@ -131,6 +132,10 @@ class NewCompanyFragment : Fragment() {
             }
             returnTransition = Slide().apply {
                 duration = resources.getInteger(R.integer.motion_duration_medium).toLong()
+            }
+
+            closeIcon.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
     }

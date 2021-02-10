@@ -62,8 +62,6 @@
     <string name="typology">Typology</string>
     <string name="maintenance_date">Maintenance date</string>
     <string name="maintenance">Maintenance</string>
-    <string name="extinguisher">Extinguisher</string>
-    <string name="company">Company</string>
 
     <string name="facebook_app_id">3489856041082244</string>
     <string name="fb_login_protocol_scheme">fb3489856041082244</string>
@@ -73,5 +71,13 @@
     <string name="login">Login</string>
     <string name="don_t_have_an_account_register_now">Don\'t have an account? Register now</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="close">Close</string>
+    <string name="company_name">Company name</string>
+    <string name="company">Company</string>
+    <string name="extinguisher">Extinguisher</string>
+    <string name="technician">Technician</string>
+    <string name="date_of_maintenance">Date of maintenance</string>
+    <string name="first_and_last_name">First and Last name</string>
+    <string name="company_address">Company address</string>
 
 </resources>

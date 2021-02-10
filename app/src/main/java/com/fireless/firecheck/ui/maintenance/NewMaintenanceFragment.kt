@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentNewMaintenanceBinding
@@ -17,10 +19,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 class NewMaintenanceFragment : Fragment() {
 
     private lateinit var binding: FragmentNewMaintenanceBinding
-
-    private val viewModel: NewMaintenanceViewModel by lazy {
-        ViewModelProvider(this).get(NewMaintenanceViewModel::class.java)
-    }
+    private lateinit var viewModel: NewMaintenanceViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,11 +27,20 @@ class NewMaintenanceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNewMaintenanceBinding.inflate(inflater, container, false)
+
+        viewModel =
+                ViewModelProvider(requireActivity()).get(NewMaintenanceViewModel::class.java)
+
         binding.viewModel = viewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val dateObserver = Observer<String> { newDate ->
+            binding.dateEditText.setText(newDate)
+        }
+        viewModel.date.observe(requireActivity(), dateObserver)
 
         binding.run {
 
@@ -45,6 +53,11 @@ class NewMaintenanceFragment : Fragment() {
             returnTransition = Slide().apply {
                 duration = resources.getInteger(R.integer.motion_duration_medium).toLong()
             }
+
+            closeIcon.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
         }
     }
 
