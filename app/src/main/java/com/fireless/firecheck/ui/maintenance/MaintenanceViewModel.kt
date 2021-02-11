@@ -3,7 +3,6 @@ package com.fireless.firecheck.ui.maintenance
 import android.util.Log
 import com.fireless.firecheck.models.Company
 import com.fireless.firecheck.models.Extinguisher
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,9 @@ import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.network.CompanyApi
 import com.fireless.firecheck.network.ExtinguisherApi
 import com.fireless.firecheck.network.MaintenanceApi
+import com.fireless.firecheck.network.UserApi
 import com.fireless.firecheck.util.ApiStatus
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,9 +22,9 @@ private const val TAG = "MAINT VIEW MODEL"
 
 class MaintenanceViewModel() : ViewModel() {
 
-    private val _companyId = MutableLiveData<String>()
-    val companyId: LiveData<String>
-        get() = _companyId
+    private val _name = MutableLiveData<String>()
+    val name: LiveData<String>
+        get() = _name
 
     private val _company = MutableLiveData<Company>()
     val company: LiveData<Company>
@@ -38,19 +39,16 @@ class MaintenanceViewModel() : ViewModel() {
         get() = _maintenance
 
     private val _status = MutableLiveData<ApiStatus>()
-    val status: LiveData<ApiStatus>
-        get() = _status
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(
         viewModelJob + Dispatchers.Main)
 
-    private var _isNetworkErrorShown: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
-    val isNetworkErrorShown: LiveData<Boolean>
-        get() = _isNetworkErrorShown
-
-    fun loadInfo(id: Int) {
+    fun loadInfo(id: String) {
         coroutineScope.launch {
+
+            loadUser(FirebaseAuth.getInstance().currentUser!!.uid)
+
             val getPropertiesDeferred = MaintenanceApi
                 .retrofitServiceGetMaintenance
                 .getMaintenance(id)
@@ -61,6 +59,22 @@ class MaintenanceViewModel() : ViewModel() {
 
                 loadExtinguisher(_maintenance.value!!.extinguisherId)
 
+                _status.value = ApiStatus.DONE
+            } catch (e: Exception) {
+                Log.e(TAG, "$e")
+            }
+        }
+    }
+
+    private fun loadUser(id: String) {
+        coroutineScope.launch {
+            val getPropertiesDeferred = UserApi
+                    .retrofitServiceGetUser
+                    .getUser(id)
+            try {
+                _status.value = ApiStatus.LOADING
+                val listResult = getPropertiesDeferred.await()
+                _name.value = listResult.firstName + " " + listResult.lastName
                 _status.value = ApiStatus.DONE
             } catch (e: Exception) {
                 Log.e(TAG, "$e")

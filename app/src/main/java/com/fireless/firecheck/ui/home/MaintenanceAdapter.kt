@@ -20,29 +20,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.models.MaintenanceDiffCallback
 import com.fireless.firecheck.databinding.MaintenanceItemBinding
+import com.fireless.firecheck.models.MaintenanceProperty
 
-/**
- * Simple adapter to display Email's in MainActivity.
- */
 class MaintenanceAdapter(
-    private val listener: MaintenanceAdapterListener
-) : ListAdapter<Maintenance, MaintenanceViewHolder>(MaintenanceDiffCallback) {
+        private val listener: MaintenanceAdapterListener
+) : ListAdapter<MaintenanceProperty, MaintenanceViewHolder>(MaintenanceDiffCallback) {
 
     interface MaintenanceAdapterListener {
-        fun onMaintenanceClicked(cardView: View, maintenance: Maintenance)
+        fun onMaintenanceClicked(cardView: View, maintenance: MaintenanceProperty)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaintenanceViewHolder {
         return MaintenanceViewHolder(
-            MaintenanceItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            ),
-            listener
+                MaintenanceItemBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                ),
+                listener
         )
     }
 

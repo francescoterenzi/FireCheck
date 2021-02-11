@@ -89,6 +89,8 @@ class MaintenanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.maintenanceId2.text = params.maintenanceId
+
         binding.navigationIcon.setOnClickListener {
             findNavController().navigateUp()
         }

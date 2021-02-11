@@ -21,7 +21,7 @@
     <data>
         <variable
             name="maintenance"
-            type="com.fireless.firecheck.models.Maintenance" />
+            type="com.fireless.firecheck.models.MaintenanceProperty" />
         <variable
             name="listener"
             type="com.fireless.firecheck.ui.home.MaintenanceAdapter.MaintenanceAdapterListener" />
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     app:layout_goneMarginEnd="@dimen/grid_2"
                     android:maxLines="1"
-                    android:text="NOME DELL'AZIENDA"
+                    android:text="@{maintenance.id}"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
                     android:textAllCaps="false"

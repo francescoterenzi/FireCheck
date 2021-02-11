@@ -79,5 +79,8 @@
     <string name="date_of_maintenance">Date of maintenance</string>
     <string name="first_and_last_name">First and Last name</string>
     <string name="company_address">Company address</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="technician_home">Technician: </string>
 
 </resources>

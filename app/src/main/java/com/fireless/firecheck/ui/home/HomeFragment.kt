@@ -1,44 +1,44 @@
 package com.fireless.firecheck.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.facebook.login.LoginManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.fireless.firecheck.R
 import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.databinding.FragmentHomeBinding
-import com.fireless.firecheck.network.FirebaseDBMng
-import com.fireless.firecheck.util.ApiStatus
+import com.fireless.firecheck.models.MaintenanceProperty
+import com.fireless.firecheck.network.UserApi
+import com.fireless.firecheck.ui.statistics.DataPoint
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_statistics.*
+import kotlinx.coroutines.*
 
 /**
  * A fragment representing a list of Items.
  */
 class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(
+            viewModelJob + Dispatchers.Main)
+
     private val activityScopeJob = SupervisorJob()
-    private lateinit var maintenanceAdapter: MaintenanceAdapter
+    private val maintenanceAdapter = MaintenanceAdapter(this)
     private lateinit var binding: FragmentHomeBinding
     private val activityScope = CoroutineScope(
         activityScopeJob + Dispatchers.Main)
-
-    private val viewModel: HomeViewModel by lazy {
-        ViewModelProvider(this).get(HomeViewModel::class.java)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,31 +54,31 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
     ): View {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.lifecycleOwner = this
-
-        maintenanceAdapter = MaintenanceAdapter(this)
-
-        binding.list.adapter = maintenanceAdapter
-        binding.viewModel = viewModel
-
-        // Observer for the network error.
-        viewModel.status.observe(viewLifecycleOwner, { status ->
-            if (status == ApiStatus.ERROR) onNetworkError()
-        })
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.list.apply {
+            val itemTouchHelper = ItemTouchHelper(ReboundingSwipeActionCallback())
+            itemTouchHelper.attachToRecyclerView(this)
+            adapter = maintenanceAdapter
+        }
+        binding.list.adapter = maintenanceAdapter
+
+        getControls(FirebaseAuth.getInstance().currentUser!!.uid).observe(viewLifecycleOwner) {
+            maintenanceAdapter.submitList(it)
+        }
+
+        getName(FirebaseAuth.getInstance().currentUser!!.uid)
+
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
     }
 
-    override fun onMaintenanceClicked(cardView: View, maintenance: Maintenance) {
+    override fun onMaintenanceClicked(cardView: View, maintenance: MaintenanceProperty) {
         // Set exit and reenter transitions here as opposed to in onCreate because these transitions
         // will be set and overwritten on HomeFragment for other navigation actions.
         exitTransition = MaterialElevationScale(false).apply {
@@ -87,20 +87,62 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         }
-        //val emailCardDetailTransitionName = getString(R.string.maintenance_card_transition_name)
-        //val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
+
         val directions =
             HomeFragmentDirections.actionHomeFragmentToMaintenanceFragment(maintenance.id)
         findNavController().navigate(directions)
     }
 
-    /**
-     * Method for displaying a Toast error message for network errors.
-     */
-    private fun onNetworkError() {
-        if (!viewModel.isNetworkErrorShown.value!!) {
-            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
-            viewModel.onNetworkErrorShown()
+    private fun getControls(userId: String): LiveData<List<MaintenanceProperty>> {
+
+        val controlList = MutableLiveData<List<MaintenanceProperty>>()
+
+        coroutineScope.launch {
+            val getPropertiesDeferred = UserApi
+                    .retrofitServiceGetUserControls
+                    .getUserControls(userId)
+
+            try {
+                val res = getPropertiesDeferred.await()
+                val _list = arrayListOf<MaintenanceProperty>()
+                 for(elem in res.reversed()) {
+                     val m = MaintenanceProperty(
+                             elem.id.toString(),
+                             elem.dateOfControl,
+                             elem.userId,
+                             elem.extinguisherId
+                     )
+                     _list.add(m)
+                 }
+                controlList.value = _list
+
+            } catch (e: Exception) {
+                Log.e("HOME FRAG", "$e")
+                controlList.value = ArrayList()
+            }
+        }
+        return controlList
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getName(id: String) {
+
+
+        coroutineScope.launch {
+
+            val getPropertiesDeferred = UserApi
+                .retrofitServiceGetUser
+                .getUser(id)
+
+            try {
+                val user = getPropertiesDeferred.await()
+                binding.technicianName.text =
+                    "Technician: " +
+                            user.firstName + " " + user.lastName
+
+            } catch (e: Exception) {
+                Log.d("STATISTICS", e.toString())
+            }
         }
     }
 

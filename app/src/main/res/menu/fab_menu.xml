@@ -7,6 +7,12 @@
         android:title="@string/logout" />
 
     <item
+        android:id="@+id/fab_statistics"
+        android:icon="@drawable/ic_baseline_poll_24"
+        android:title="Statistics"
+        />
+
+    <item
         android:id="@+id/fab_maintenance"
         android:icon="@drawable/ic_baseline_playlist_add_24"
         android:title="@string/maintenance" />

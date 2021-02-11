@@ -28,9 +28,9 @@ data class Maintenance(
     @Json(name = "user_id") val userId: String,
     @Json(name = "extinguisher_id") val extinguisherId: String)
 
-object MaintenanceDiffCallback : DiffUtil.ItemCallback<Maintenance>() {
-    override fun areItemsTheSame(oldItem: Maintenance, newItem: Maintenance) = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Maintenance, newItem: Maintenance) = oldItem == newItem
+object MaintenanceDiffCallback : DiffUtil.ItemCallback<MaintenanceProperty>() {
+    override fun areItemsTheSame(oldItem: MaintenanceProperty, newItem: MaintenanceProperty) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: MaintenanceProperty, newItem: MaintenanceProperty) = oldItem == newItem
 }
 
 

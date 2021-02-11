@@ -41,6 +41,12 @@ interface SetUserApiService {
             Deferred<UserProperty>
 }
 
+interface GetUserApiService {
+    @GET("users/{id}")
+    fun getUser(@Path("id") id: String):
+            Deferred<UserProperty>
+}
+
 interface GetUserControlsApiService {
     @GET("users/{id}/controls")
     fun getUserControls(@Path("id") uuid: String):
@@ -83,7 +89,7 @@ interface SetMaintenanceApiService {
 
 interface GetMaintenanceApiService {
     @GET("controls/{id}")
-    fun getMaintenance(@Path("id") id: Int):
+    fun getMaintenance(@Path("id") id: String):
             Deferred<Maintenance>
 }
 
@@ -112,6 +118,10 @@ object UserApi {
 
     val retrofitServiceSetUser: SetUserApiService by lazy {
         retrofit.create(SetUserApiService::class.java)
+    }
+
+    val retrofitServiceGetUser: GetUserApiService by lazy {
+        retrofit.create(GetUserApiService::class.java)
     }
 
     val retrofitServiceGetUserControls: GetUserControlsApiService by lazy {

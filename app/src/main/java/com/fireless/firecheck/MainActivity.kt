@@ -21,6 +21,7 @@ import com.fireless.firecheck.ui.home.MaintenanceAdapter
 import com.fireless.firecheck.ui.login.LoginActivity
 import com.fireless.firecheck.ui.maintenance.DatePickerFragment
 import com.fireless.firecheck.ui.maintenance.NewMaintenanceFragmentDirections
+import com.fireless.firecheck.ui.statistics.StatisticsFragmentDirections
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.firebase.auth.FirebaseAuth
@@ -80,6 +81,17 @@ class MainActivity : AppCompatActivity() {
                     .create())
 
             addActionItem(SpeedDialActionItem.Builder(
+                R.id.fab_statistics,
+                R.drawable.ic_baseline_poll_24)
+                .setLabelColor(Color.WHITE)
+                .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.white, theme))
+                .setLabelBackgroundColor(ResourcesCompat.getColor(resources, R.color.blue_600, theme))
+                .setFabSize(FloatingActionButton.SIZE_NORMAL)
+                .setLabel("Statistics")
+                .setLabelClickable(false)
+                .create())
+
+            addActionItem(SpeedDialActionItem.Builder(
                 R.id.fab_maintenance,
                 R.drawable.ic_baseline_playlist_add_24)
                 .setLabelColor(Color.WHITE)
@@ -130,6 +142,11 @@ class MainActivity : AppCompatActivity() {
                         close()
                         return@OnActionSelectedListener true
                     }
+                    R.id.fab_statistics -> {
+                        navigateToStatistics()
+                        close()
+                        return@OnActionSelectedListener true
+                    }
                     R.id.fab_logout -> {
                         activityScope.launch {
                             FirebaseAuth.getInstance().signOut()
@@ -162,6 +179,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         val directions = NewMaintenanceFragmentDirections.actionGlobalNewMaintenanceFragment()
+        findNavController(R.id.nav_host_fragment).navigate(directions)
+    }
+
+    private fun navigateToStatistics() {
+        currentNavigationFragment?.apply {
+            exitTransition = MaterialElevationScale(false).apply {
+                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            }
+            reenterTransition = MaterialElevationScale(true).apply {
+                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            }
+        }
+
+        val directions = StatisticsFragmentDirections.actionGlobalStatisticsFragment()
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
 
