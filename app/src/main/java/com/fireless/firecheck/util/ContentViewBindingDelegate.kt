@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.materialstudies.reply.util
+package com.fireless.firecheck.util
 
 
 import android.app.Activity

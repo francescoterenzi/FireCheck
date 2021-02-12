@@ -10,19 +10,15 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.fireless.firecheck.R
-import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.databinding.FragmentHomeBinding
 import com.fireless.firecheck.models.MaintenanceProperty
 import com.fireless.firecheck.network.UserApi
-import com.fireless.firecheck.ui.statistics.DataPoint
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_statistics.*
 import kotlinx.coroutines.*
 
 /**
@@ -34,11 +30,8 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
     private val coroutineScope = CoroutineScope(
             viewModelJob + Dispatchers.Main)
 
-    private val activityScopeJob = SupervisorJob()
     private val maintenanceAdapter = MaintenanceAdapter(this)
     private lateinit var binding: FragmentHomeBinding
-    private val activityScope = CoroutineScope(
-        activityScopeJob + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +97,7 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
 
             try {
                 val res = getPropertiesDeferred.await()
-                val _list = arrayListOf<MaintenanceProperty>()
+                val list = arrayListOf<MaintenanceProperty>()
                  for(elem in res.reversed()) {
                      val m = MaintenanceProperty(
                              elem.id.toString(),
@@ -112,9 +105,9 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
                              elem.userId,
                              elem.extinguisherId
                      )
-                     _list.add(m)
+                     list.add(m)
                  }
-                controlList.value = _list
+                controlList.value = list
 
             } catch (e: Exception) {
                 Log.e("HOME FRAG", "$e")
@@ -136,9 +129,7 @@ class HomeFragment : Fragment(), MaintenanceAdapter.MaintenanceAdapterListener {
 
             try {
                 val user = getPropertiesDeferred.await()
-                binding.technicianName.text =
-                    "Technician: " +
-                            user.firstName + " " + user.lastName
+                binding.technicianName.text = user.firstName + " " + user.lastName
 
             } catch (e: Exception) {
                 Log.d("STATISTICS", e.toString())

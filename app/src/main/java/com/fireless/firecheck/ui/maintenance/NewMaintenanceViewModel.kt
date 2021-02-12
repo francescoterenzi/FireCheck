@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import com.fireless.firecheck.R
 import com.fireless.firecheck.network.MaintenanceApi
-import com.fireless.firecheck.util.ApiStatus
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,14 +37,6 @@ class NewMaintenanceViewModel : ViewModel() {
         viewModelJob + Dispatchers.Main
     )
 
-    private val _status = MutableLiveData<ApiStatus>()
-    val status: LiveData<ApiStatus>
-        get() = _status
-
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
-    val isNetworkErrorShown: LiveData<Boolean>
-        get() = _isNetworkErrorShown
-
     init {
         _extinguisherIdError.value = ""
         _dateError.value = ""
@@ -65,15 +56,10 @@ class NewMaintenanceViewModel : ViewModel() {
                         extinguisherId,
                         auth.currentUser!!.uid)
             try {
-                _status.value = ApiStatus.LOADING
                 setPropertiesDeferred.await()
-                _status.value = ApiStatus.DONE
-
                 view.findNavController().navigate(R.id.action_newMaintenanceFragment_to_homeFragment)
-
             } catch (e: Exception) {
                 Log.e(TAG, "$e")
-                _status.value = ApiStatus.ERROR
             }
         }
     }

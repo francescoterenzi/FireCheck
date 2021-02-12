@@ -8,43 +8,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginHorizontal="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/statistics_header"
+                android:layout_marginHorizontal="20dp"
+                android:id="@+id/maintenance_header"
                 android:layout_width="match_parent"
+                android:paddingVertical="@dimen/grid_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/statistics_header"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="@string/statistics"
+                    android:gravity="center_vertical"
+                    android:textSize="35sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="match_parent"/>
 
                 <ImageButton
                     android:id="@+id/close_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/grid_2"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="?attr/actionBarItemBackground"
                     app:srcCompat="@drawable/ic_close_24"
                     android:contentDescription="@string/close" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.fireless.firecheck.ui.statistics.GraphView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                android:id="@+id/graph"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="500dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/statistics_header">
+                app:layout_constraintTop_toBottomOf="@+id/statistics_header"/>
 
-                <com.fireless.firecheck.ui.statistics.GraphView
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/graph_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </ScrollView>
 </layout>

@@ -2,6 +2,7 @@ package com.fireless.firecheck.ui.maintenance
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.transition.MaterialContainerTransform
+import java.util.*
+import kotlin.math.log
 
 
 class MaintenanceFragment : Fragment() {
@@ -73,13 +76,21 @@ class MaintenanceFragment : Fragment() {
             googleMap = mMap
 
             // For dropping a marker at a point on the Map
-            val sydney = LatLng(-34.00, 151.00)
+
+            val numLat = 80 + Random().nextInt(10)
+            val numLong = 60 + Random().nextInt(10)
+
+            val lat = ("41.$numLong").toDouble()
+            val long = ("12.$numLat").toDouble()
+
+            val position = LatLng(lat, long)
+
             googleMap.addMarker(
-                MarkerOptions().position(sydney)
+                MarkerOptions().position(position)
             )
 
             // For zooming automatically to the location of the marker
-            val cameraPosition = CameraPosition.Builder().target(sydney).zoom(12f).build()
+            val cameraPosition = CameraPosition.Builder().target(position).zoom(12f).build()
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
 

@@ -8,16 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.facebook.FacebookSdk
-import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginManager
 import com.fireless.firecheck.databinding.ActivityMainBinding
-import com.fireless.firecheck.databinding.FragmentHomeBinding
 import com.fireless.firecheck.network.FirebaseDBMng
 import com.fireless.firecheck.network.FirebaseUserLiveData
 import com.fireless.firecheck.ui.company.NewCompanyFragmentDirections
 import com.fireless.firecheck.ui.extinguisher.NewExtinguisherFragmentDirections
-import com.fireless.firecheck.ui.home.MaintenanceAdapter
 import com.fireless.firecheck.ui.login.LoginActivity
 import com.fireless.firecheck.ui.maintenance.DatePickerFragment
 import com.fireless.firecheck.ui.maintenance.NewMaintenanceFragmentDirections
@@ -27,7 +23,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.google.firebase.auth.FirebaseAuth
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
-import com.materialstudies.reply.util.contentView
+import com.fireless.firecheck.util.contentView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

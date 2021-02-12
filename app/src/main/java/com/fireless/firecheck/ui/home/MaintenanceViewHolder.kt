@@ -3,7 +3,6 @@ package com.fireless.firecheck.ui.home
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.fireless.firecheck.databinding.MaintenanceItemBinding
-import com.fireless.firecheck.models.Maintenance
 import com.fireless.firecheck.models.MaintenanceProperty
 
 class MaintenanceViewHolder(

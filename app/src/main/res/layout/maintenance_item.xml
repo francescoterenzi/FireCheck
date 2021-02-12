@@ -27,77 +27,96 @@
             type="com.fireless.firecheck.ui.home.MaintenanceAdapter.MaintenanceAdapterListener" />
     </data>
 
-    <FrameLayout
-        android:id="@+id/maintenance_frame"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginVertical="@dimen/grid_0_5"
-        android:background="@drawable/rounded_corners">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/maintenance_card_view"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/plane_06"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="@{(view) -> listener.onMaintenanceClicked(view, maintenance)}"
-            app:cardPreventCornerOverlap="false"
-            android:layout_marginTop="@dimen/grid_2"
-            android:layout_marginEnd="@dimen/grid_2"
-            android:layout_marginStart="@dimen/grid_2"
-            android:layout_marginBottom="@dimen/grid_2"
-            tools:ignore="ExtraText">
-            android:transitionName="@{@string/maintenance_card_transition_name(maintenance.id)}">
+            android:layout_rowWeight="1"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:layout_columnWeight="1"
+            android:clipToPadding="false"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/maintenance_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:layout_marginBottom="@dimen/grid_2"
+                    android:clickable="true"
+                    android:elevation="@dimen/plane_06"
+                    android:focusable="true"
+                    android:onClick="@{(view) -> listener.onMaintenanceClicked(view, maintenance)}"
+                    app:cardPreventCornerOverlap="false"
+                    tools:ignore="ExtraText">
+                    android:transitionName="@{@string/maintenance_card_transition_name(maintenance.id)}">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/body"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-                <TextView
-                    android:id="@+id/date_of_control"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_goneMarginEnd="@dimen/grid_2"
-                    android:maxLines="1"
-                    android:text="@{maintenance.id}"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif"
-                    android:textAllCaps="false"
-                    android:textSize="22sp"
-                    android:textColor="#ffffff"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-                <TextView
-                    android:id="@+id/name_of_company"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    app:layout_goneMarginEnd="@dimen/grid_2"
-                    android:maxLines="1"
-                    android:text="CO2 - 6 Kg"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date_of_control"/>
-                <TextView
-                    android:id="@+id/extinguisher_typology"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    app:layout_goneMarginEnd="@dimen/grid_2"
-                    android:maxLines="1"
-                    android:text="CO2 - 6 Kg"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_of_company"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/body"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintEnd_toStartOf="@id/arrow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/control_id_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:maxLines="1"
+                            android:text="@string/maintenance_item"
+                            android:textAllCaps="true"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/control_id_2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+                        <TextView
+                            android:id="@+id/control_id_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:maxLines="1"
+                            android:text="@{maintenance.id}"
+                            android:textAllCaps="false"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@id/control_id_1"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
-
+                        <TextView
+                            android:id="@+id/extinguisher_typology"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="@{maintenance.dateOfControl}"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/control_id_1"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toEndOf="@id/body"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <ImageView
+                            android:id="@+id/arrow_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:background="@color/white"
+                            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+                            android:contentDescription="@string/close" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 </layout>

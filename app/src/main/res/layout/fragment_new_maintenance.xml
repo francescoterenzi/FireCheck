@@ -15,29 +15,46 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="#3b5998"
                 android:id="@+id/new_maintenance_header"
                 android:layout_width="match_parent"
+                android:paddingVertical="@dimen/grid_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="@string/new_maintenance"
+                    android:gravity="center_vertical"
+                    android:textSize="35sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="match_parent"/>
+
                 <ImageButton
+                    android:layout_marginEnd="20dp"
                     android:id="@+id/close_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/grid_2"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="?attr/actionBarItemBackground"
+                    android:background="@color/white"
                     app:srcCompat="@drawable/ic_close_24"
                     android:contentDescription="@string/close" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
                 android:id="@+id/new_maintenance_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

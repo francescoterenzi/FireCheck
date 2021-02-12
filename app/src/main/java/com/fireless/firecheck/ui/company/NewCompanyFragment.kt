@@ -178,7 +178,7 @@ class NewCompanyFragment : Fragment() {
     /**
      * Runs when user clicks the Fetch Address button.
      */
-    fun fetchAddressButtonHandler() {
+    private fun fetchAddressButtonHandler() {
         if (lastLocation != null) {
             startIntentService()
             return

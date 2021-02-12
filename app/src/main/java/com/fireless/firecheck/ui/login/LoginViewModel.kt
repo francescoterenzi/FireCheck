@@ -8,14 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
-import com.facebook.AccessToken
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginResult
 import com.google.firebase.auth.FirebaseAuth
 import com.fireless.firecheck.R
-import com.fireless.firecheck.network.FirebaseDBMng
-import com.google.firebase.auth.FacebookAuthProvider
 
 private const val TAG = "LOGIN VIEW MODEL"
 
