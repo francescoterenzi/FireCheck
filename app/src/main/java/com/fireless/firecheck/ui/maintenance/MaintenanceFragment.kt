@@ -34,19 +34,6 @@ class MaintenanceFragment : Fragment() {
         ViewModelProvider(this).get(MaintenanceViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            // Scope the transition to a view in the hierarchy so we know it will be added under
-            // the bottom app bar but over the elevation scale of the exiting HomeFragment.
-            drawingViewId = R.id.nav_host_fragment
-            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-            scrimColor = Color.TRANSPARENT
-            //setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

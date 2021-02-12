@@ -124,16 +124,6 @@ class NewCompanyFragment : Fragment() {
                 fetchAddressButtonHandler()
             }
 
-            // Set transitions here so we are able to access Fragment's binding views.
-            enterTransition = MaterialContainerTransform().apply {
-                // Manually add the Views to be shared since this is not a standard Fragment to
-                // Fragment shared element transition.
-                startView = requireActivity().findViewById(R.id.fab)
-            }
-            returnTransition = Slide().apply {
-                duration = resources.getInteger(R.integer.motion_duration_medium).toLong()
-            }
-
             closeIcon.setOnClickListener {
                 findNavController().navigateUp()
             }

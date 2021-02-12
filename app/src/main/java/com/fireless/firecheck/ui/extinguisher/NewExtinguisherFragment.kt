@@ -13,11 +13,9 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.transition.Slide
 import com.fireless.firecheck.R
 import com.fireless.firecheck.databinding.FragmentNewExtinguisherBinding
 import com.fireless.firecheck.network.ExtinguisherApi
-import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -35,12 +33,6 @@ class NewExtinguisherFragment : Fragment() {
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(
         viewModelJob + Dispatchers.Main)
-
-    /*
-    private val viewModel: NewExtinguisherViewModel by lazy {
-        ViewModelProvider(this).get(NewExtinguisherViewModel::class.java)
-    }
-     */
 
     private lateinit var binding: FragmentNewExtinguisherBinding
 
@@ -70,16 +62,6 @@ class NewExtinguisherFragment : Fragment() {
 
 
         binding.run {
-
-            // Set transitions here so we are able to access Fragment's binding views.
-            enterTransition = MaterialContainerTransform().apply {
-                // Manually add the Views to be shared since this is not a standard Fragment to
-                // Fragment shared element transition.
-                startView = requireActivity().findViewById(R.id.fab)
-            }
-            returnTransition = Slide().apply {
-                duration = resources.getInteger(R.integer.motion_duration_medium).toLong()
-            }
 
             typology.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(adapterView: AdapterView<*>, view: View,
